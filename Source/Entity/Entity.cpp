@@ -1,6 +1,6 @@
-#include "..\Include\Entity.h"
-#include "..\Include\Component.h"
-#include "..\Include\Logger.h"
+#include "../../Include/Entity.h"
+#include "../../Include/Component.h"
+#include "../../Include/Logger.h"
 
 #include <iostream>
 
@@ -27,12 +27,13 @@ namespace clim{
 		return listOfComponents;
 	}
 	Component* Entity::getComponent(std::string name){
-		for each (Component *c in listOfComponents)
-		{
-			if (c->getName() == name){
-				return c;
-			}
-		}
+      int x = 0;
+        do{
+            if (this->listOfComponents.at(x)->getName() == name)
+                return listOfComponents.at(x);
+            else
+                x++;
+        }while(x < this->listOfComponents.size());
 		
 				return nullptr;
 
@@ -44,12 +45,15 @@ namespace clim{
 		}
 	}
 	bool Entity::hasComponent(int id){
-		for each (Component *c in listOfComponents){
-			if (c->getId() == id){
+       int x = 0;
+       do{
+            if (this->listOfComponents.at(x)->getId() == id){
 				return true;
-			}
+            }else
+                x++;
+       }while(x < listOfComponents.size());
 
-		}
+
 		return false;
 	}
 
@@ -95,23 +99,26 @@ namespace clim{
 
 	Entity* Entity::findChildByName(std::string name){
 
-		for each(Entity* e in m_children){
-			if (e->getName() == name){
-				return e;
-			}
-		}
+        int x = 0;
+        do{
+            if (this->m_children.at(x)->getName() == name){
+                return this->m_children.at(x);
+            }else
+                x++;
+        } while(x < this->m_children.size());
 		return nullptr;
 	}
 
 	std::vector<Entity*> Entity::findAllChildrenByName(std::string name){
 
 		std::vector<Entity*> temp;
-
-		for each(Entity* e in m_children){
-			if (e->getName() == name){
-				temp.push_back(e);
-			}
-		}
+    int x = 0;
+    do{
+        if (this->m_children.at(x)->getName() == name){
+                temp.push_back(this->m_children.at(x));
+            }else
+            x++;
+        }while(x < this->m_children.size());
 			return temp;
 	}
 

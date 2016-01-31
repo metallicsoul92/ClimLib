@@ -1,6 +1,6 @@
-#include "..\Include\Logger.h"
+#include "../../Include/Logger.h"
 #include <iostream>
-#include "..\include\fileutils.h"
+#include "../../include/fileutils.h"
 
 namespace clim{
 	namespace system{

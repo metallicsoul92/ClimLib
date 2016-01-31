@@ -4,7 +4,6 @@
 
 #include <vector>
 
-#include "ComponentMessageHandler.h"
 
 
 namespace clim
@@ -45,7 +44,7 @@ namespace clim
 			int m_id;
 			std::string m_Name;
 			component_List listOfComponents;
-			ComponentMessageHandler message;
+//			ComponentMessageHandler message;
 			entity_List m_children;
 			Entity* m_parent;
 			/*when you have the ability via boost, add a serialization file or object to send to a file*/
@@ -112,10 +111,9 @@ namespace clim
 			template <typename T>
 			T* findComponentType()
 			{
-				for each (Component* component in listOfComponents)
-				{
+                for(int x = 0; x < listOfComponents.size();x++){
 					//for (component_Itr itr = listOfComponents.begin(); itr != listOfComponents.end(), ++itr){
-					if (T* type = dynamic_cast<T*>(component))
+                    if (T* type = dynamic_cast<T*>(listOfComponents.at(x)))
 					{
 						return type;
 					}

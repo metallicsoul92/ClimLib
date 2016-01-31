@@ -1,4 +1,4 @@
-#include "..\Include\platform.h"
+#include "../../Include/platform.h"
 
 namespace clim{
 	namespace system{

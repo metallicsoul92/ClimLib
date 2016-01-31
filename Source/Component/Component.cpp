@@ -1,5 +1,5 @@
-#include "..\Include\Component.h"
-#include "..\Include\Entity.h"
+#include "../../Include/Component.h"
+#include "../../Include/Entity.h"
 
 namespace clim{
 	namespace core{
@@ -66,27 +66,31 @@ namespace clim{
 		Component::Component(Entity *parent) : parent(parent){
 			this->m_name = "Default Component";
 			this->m_id = 0;
-			parent->addComponent(this);
+            this->parent = parent;
+            this->parent->addComponent(this);
 			this->active = true;
 		
 		}
 		
 		Component::Component(std::string name, Entity *parent) : m_name(name), parent(parent){
 			this->m_id = 0;
-			parent->addComponent(this);
+            this->parent = parent;
+            this->parent->addComponent(this);
 			this->active = true;
 		
 		}
 		
 		Component::Component(int id, Entity *parent): m_id(id), parent(parent){
 			this->m_name = "Default Component";
-			parent->addComponent(this);
+            this->parent = parent;
+            this->parent->addComponent(this);
 			this->active = true;
 		
 		}
 		
 		Component::Component(int id, std::string name, Entity *parent): m_id(id),m_name(name),parent(parent){
-			parent->addComponent(this);
+            this->parent = parent;
+            this->parent->addComponent(this);
 			this->active = true;
 	
 		}

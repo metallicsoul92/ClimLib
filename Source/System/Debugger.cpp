@@ -1,7 +1,7 @@
-#include "..\Include\Debugger.h"
+#include "../../Include/Debugger.h"
 #include <iostream>
 #include <ctime>
-#include "..\Include\Logger.h"
+#include "../../Include/Logger.h"
 
 namespace clim
 {

@@ -1,6 +1,5 @@
-#include "..\Include\Buffer.h"
-
-#include "..\Include\ClimOpenGL.h"
+#include "../../Include/Buffer.h"
+#include <QOpenGLContext>
 namespace clim{
 	namespace system{
 
@@ -15,10 +14,12 @@ namespace clim{
 		Buffer::Buffer(float* data, unsigned count, unsigned componentCount)
 		: m_componentCount(componentCount)
 		{
-			OpenGL::genBuffers(1, &m_bufferID);
-			OpenGL::bindBuffers(GL_ARRAY_BUFFER, m_bufferID);
-			OpenGL::createBufferData(GL_ARRAY_BUFFER, count * sizeof(float), data, GL_STATIC_DRAW);
-			OpenGL::bindBuffers(GL_ARRAY_BUFFER, 0);
+            QOpenGLFunctions *f = (QOpenGLFunctions *)malloc(sizeof(QOpenGLFunctions *));
+           f->glGenBuffers(1, &m_bufferID);
+            f->glBindBuffer(GL_ARRAY_BUFFER, m_bufferID);
+            f->glBufferData(GL_ARRAY_BUFFER, count * sizeof(float), data, GL_STATIC_DRAW);
+            f->glBindBuffer(GL_ARRAY_BUFFER, 0);
+            free(f);
 		}
 
 		/////////////////////////////////////////////////
@@ -27,22 +28,27 @@ namespace clim{
 		// to the id as the second parameter
 		//////////////////////////////////////////////////
 		Buffer::~Buffer()
-		{
-			OpenGL::deleteBuffer(GL_ARRAY_BUFFER, &m_bufferID);
+        {
+            QOpenGLFunctions *f = (QOpenGLFunctions *)malloc(sizeof(QOpenGLFunctions *));
+
+            f->glDeleteBuffers(GL_ARRAY_BUFFER, &m_bufferID);
+
 		}
 		///////////////////////////////////////////////////
 		//Bind function
 		////////////////////////////////////////////
 		void Buffer::bind() const
 		{
-			OpenGL::bindBuffers(GL_ARRAY_BUFFER, m_bufferID);
+QOpenGLFunctions *f = (QOpenGLFunctions *)malloc(sizeof(QOpenGLFunctions *));
+            f->glBindBuffer(GL_ARRAY_BUFFER, m_bufferID);
 		}
 		////////////////////////////////////////////
 		// Unbind function
 		///////////////////////////////////////////
 		void Buffer::unbind() const
 		{
-			OpenGL::bindBuffers(GL_ARRAY_BUFFER, 0);
+            QOpenGLFunctions *f = (QOpenGLFunctions *)malloc(sizeof(QOpenGLFunctions *));
+            f->glBindBuffer(GL_ARRAY_BUFFER, 0);
 		}
 		///////////////////////////////
 		// component count getter method;

@@ -1,0 +1,6 @@
+I should create a callback class for each of the following callbacks:
+	resizeApplication
+	KeyCode
+	MouseCode
+	MousePosition
+	CommandCallback (callbacks with the CTRL keycode before any)

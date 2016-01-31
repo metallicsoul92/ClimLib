@@ -1,6 +1,7 @@
 #ifndef MATHFUNCTIONS_H_
 #define MATHFUNCTIONS_H_
 
+#include <math.h>
 
 #include "MathTypes.h"
 #include <iostream>
