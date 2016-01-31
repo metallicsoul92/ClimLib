@@ -1,46 +1,33 @@
 #ifndef SCREEN_H
 #define SCREEN_H
 
-#include <QMainWindow>
-#include <QTGui>
-#include <QtGui/QOpenGLFunctions>
-
-class QPainter;
-class QOpenGLContext;
-class QOpenGLPaintDevice;
+#include <QtGui>
+#include <QKeyEvent>
+#include <GL/glu.h>
+#include <QtGui/QOpenGLWindow>
 
 namespace clim{
     namespace graphics{
 
-    class Screen : public QMainWindow, protected QOpenGLFunctions{
+    class Screen : public QOpenGLWindow
+    {
         Q_OBJECT
+
     public:
-        explicit Screen(QMainWindow *parent = 0);
+        explicit Screen();
         ~Screen();
 
-        virtual void render(QPainter *painter);
-        virtual void render();
-
-        virtual void initialize();
-
-        void setAnimating(bool animating);
-
-        void initializet(QString title,int width, int height);
-    public slots:
-        void renderLater();
-        void renderNow();
-
+        void setupScreen(const QString title, int width, int height);
     protected:
-        bool event(QEvent *event) Q_DECL_OVERRIDE;
+        void resizeGL(int w, int h);
 
-        void exposeEvent(QExposeEvent *event) Q_DECL_OVERRIDE;
+        void initializeGL();
 
+        void paintGL();
+
+        void keyPressEvent(QKeyEvent *event);
     private:
-        bool m_update_pending;
-        bool m_animating;
-
-        QOpenGLContext *m_context;
-        QOpenGLPaintDevice *m_device;
+        bool m_show_full_screen;
     };
   }
 }
