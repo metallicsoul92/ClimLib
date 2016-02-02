@@ -1,6 +1,6 @@
 #pragma once
 
-#include <QtOpenGL>
+
 namespace clim {
 	namespace system{
 

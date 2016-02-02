@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>console</class>
+ <widget class="QWidget" name="console">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>ClimLib Console</string>
+  </property>
+  <widget class="QPlainTextEdit" name="outputField">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>10</y>
+     <width>391</width>
+     <height>261</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="inputField">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>270</y>
+     <width>391</width>
+     <height>20</height>
+    </rect>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

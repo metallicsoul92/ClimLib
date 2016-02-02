@@ -1,5 +1,6 @@
 #include "../../Include/Buffer.h"
 #include <QOpenGLContext>
+#include <QOpenGLFunctions>
 namespace clim{
 	namespace system{
 

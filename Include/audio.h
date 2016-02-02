@@ -4,6 +4,8 @@
 
 #include <QSound>
 
+#define AUDIOFOLDER "../../../../Assets/Audio/"
+
 
 namespace clim{
     namespace core{

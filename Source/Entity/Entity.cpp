@@ -93,7 +93,7 @@ namespace clim{
 		else{
 			std::string childName;
 			childName = child->getName();
-			system::logger.writeToGELog("Entity is equal to null pointer. Name: " + childName );
+            system::logger.writeToGELog("Entity is equal to null pointer. Name: " + childName );
 		}
 	}
 

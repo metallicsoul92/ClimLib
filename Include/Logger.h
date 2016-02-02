@@ -1,13 +1,15 @@
 #ifndef LOGGER_H_
 #define LOGGER_H_
 #include <iostream>
+#include "console.h"
+#include <QString>
 
-
-#define LOG "Log/"
+#define LOG "../../../../Log/"
 
 namespace clim{
 	namespace system{
-
+//foward declare
+    class console;
 
 		class Logger
 		{
@@ -15,19 +17,18 @@ namespace clim{
 	
 			~Logger(){  };
 
-			void writeToLog(const std::string filepath, const std::string data);
-			void writeToGELog(const std::string data);			
-			void writeToDebugLog(const std::string data);
-			void writeToGLFWDLog(const std::string data);
-			void writeToGLEWDLog(const std::string data);
-			void writeToGLFWELog(const std::string data);
-			void writeToGLEWELog(const std::string data);
+            void cwriteToLog( console *c, const std::string filepath, const std::string data);
+             void writeToLog(const std::string filepath, const std::string data);
+            void cwriteToGELog(console *c,const std::string data);
+            void cwriteToDebugLog(console *c,const std::string data);
+            void writeToGELog(const std::string data);
+            void writeToDebugLog(const std::string data);
+            void printToConsole(console *c,QString data);
 
 
-			
 		};
 
-		static Logger logger;
+        static Logger logger;
 	}
 }
 #endif

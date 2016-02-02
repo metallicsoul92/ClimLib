@@ -9,7 +9,8 @@ HEADERS += \
     Include/MathTypes.h \
     Include/platform.h \
     Include/screen.h \
-    Include/audio.h
+    Include/audio.h \
+    Include/console.h
 
 SOURCES += \
     Source/Component/Component.cpp \
@@ -21,11 +22,13 @@ SOURCES += \
     Source/Entity/Entity.cpp \
     Source/Graphics/screen.cpp \
     Source/main.cpp \
-    Source/Core/audio.cpp
+    Source/Core/audio.cpp \
+    Source/System/console.cpp
 
-
+CONFIG += console
 CONFIG += c++11
 QT += gui widgets
 QT += multimedia
 
-FORMS +=
+FORMS += \
+   Source/System/console.ui

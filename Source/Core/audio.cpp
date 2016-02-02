@@ -5,8 +5,11 @@ namespace clim{
 
 
 
-    Audio::Audio(QString name,QString path): m_Name(name), m_Path(path), m_Sound( new QSound(path))
+    Audio::Audio(QString name,QString path): m_Name(name), m_Path(AUDIOFOLDER+path)
     {
+        QString fullFilePath = AUDIOFOLDER;
+        fullFilePath +=path;
+        m_Sound = new QSound(fullFilePath);
     }
 
      void Audio::play(){

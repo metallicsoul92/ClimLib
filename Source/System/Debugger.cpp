@@ -10,7 +10,7 @@ namespace clim
 		
 		void Debugger::printToScreen(std::string line)
 		{
-#ifdef DEBUG
+#ifdef QT_DEBUG
 			time_t t = time(nullptr);
 			tm *timen = localtime(&t);
 			std::string fileDate;
@@ -18,7 +18,7 @@ namespace clim
 			fileDate += "-";
 			fileDate += std::to_string(timen->tm_mday);
 			fileDate += ".txt";
-			logger.writeToLog(fileDate, line);
+            logger.writeToLog(fileDate, line);
 #endif
 		}
 

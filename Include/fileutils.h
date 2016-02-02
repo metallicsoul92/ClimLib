@@ -31,9 +31,9 @@ namespace clim{
 		static void write_To_File(std::string filepath, std::string data){
 			std::ofstream file;
 			file.open(filepath.c_str(), std::ios::app);
-			file << data.c_str();
+            file << data.c_str();
 			file << std::endl;
-			file.close();
+            file.close();
 
 		}
     };
