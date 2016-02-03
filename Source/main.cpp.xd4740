@@ -51,8 +51,8 @@ int main(int argc, char *argv[])
       s.show();
       test.play();
 
-      system::logger.cwriteToDebugLog(&c,std::to_string(s.x()).c_str());
-      system::logger.cwriteToDebugLog(&c,std::to_string(s.y()).c_str());
+      system::logger.cwriteToDebugLog(&c,s.x());
+      system::logger.cwriteToDebugLog(&c,s.y());
 
       return a.exec();
 

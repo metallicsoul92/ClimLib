@@ -1,3 +1,9 @@
 Here is a test to see if i banked this into the Log folder ;)
 Here is a test to see if i banked this into the Log folder ;)
 Debugging the Logging system.
+Debugging the Logging system.
+This is a Git Kraken Test.
+Debugging the Logging system.
+This is a Git Kraken Test. V 0.0.2.1 push soon
+880
+440
