@@ -44,6 +44,7 @@ int main(int argc, char *argv[])
    platform.append(QString(system::platformToString(system::detectPlatform()).c_str()));
    c.printToConsole(platform);
        system::logger.cwriteToDebugLog(&c,"Debugging the Logging system.");
+       system::logger.cwriteToDebugLog(&c,"This is a Git Kraken Test.");
     Screen s;
       s.setupScreen(ApplicationTitle,640,480);
       s.show();
