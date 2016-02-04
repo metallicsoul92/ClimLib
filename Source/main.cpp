@@ -9,7 +9,7 @@
 #include "Include/fileutils.h"
 #include "Include/console.h"
 #include <QMessageBox>
-
+#include "Include/engine.h"
 #define VERSION "0.0.2.0"
 #define ENGINETITLE "ClimLib"
 
@@ -25,36 +25,39 @@ QString ApplicationTitle;
 int main(int argc, char *argv[])
 {
     Audio test = Audio("Test","Test.wav");
-
-    ApplicationTitle += ENGINETITLE;
-    ApplicationTitle += " Version ";
-    ApplicationTitle += VERSION;
-    QApplication a(argc, argv);
-
-    system::console c;
-
-   // QMessageBox qmb;
-  //  qmb.show();
-   // qmb.setText("Initialization of the Engine");
+    QApplication app(argc,argv);
+    Engine engine = Engine(&app,"ClimLib ","0.0.2.0",true);
 
 
-    c.show();
-   c.printToConsole("Initialization of ClimLib v 0.0.2.0");
-   QString platform = "Platform: ";
-   platform.append(QString(system::platformToString(system::detectPlatform()).c_str()));
-   c.printToConsole(platform);
-       system::logger.cwriteToDebugLog(&c,"Debugging the Logging system.");
-       system::logger.cwriteToDebugLog(&c,"This is a Git Kraken Test. V 0.0.2.1 push soon");
+//    ApplicationTitle += ENGINETITLE;
+//    ApplicationTitle += " Version ";
+//    ApplicationTitle += VERSION;
+//    QApplication a(argc, argv);
 
-    Screen s;
-      s.setupScreen(ApplicationTitle,640,480);
-      s.show();
-      test.play();
+//    system::console c;
 
-      system::logger.cwriteToDebugLog(&c,std::to_string(s.x()).c_str());
-      system::logger.cwriteToDebugLog(&c,std::to_string(s.y()).c_str());
+//   // QMessageBox qmb;
+//  //  qmb.show();
+//   // qmb.setText("Initialization of the Engine");
 
-      return a.exec();
+
+//    c.show();
+//   c.printToConsole("Initialization of ClimLib v 0.0.2.0");
+//   QString platform = "Platform: ";
+//   platform.append(QString(system::platformToString(system::detectPlatform()).c_str()));
+//   c.printToConsole(platform);
+//       system::logger.cwriteToDebugLog(&c,"Debugging the Logging system.");
+//       system::logger.cwriteToDebugLog(&c,"This is a Git Kraken Test. V 0.0.2.1 push soon");
+
+//    Screen s;
+//      s.setupScreen(ApplicationTitle,640,480);
+//      s.show();
+//      test.play();
+
+//      system::logger.cwriteToDebugLog(&c,std::to_string(s.x()).c_str());
+//      system::logger.cwriteToDebugLog(&c,std::to_string(s.y()).c_str());
+
+      return app.exec();
 
 }
 
