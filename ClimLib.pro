@@ -10,7 +10,8 @@ HEADERS += \
     Include/platform.h \
     Include/screen.h \
     Include/audio.h \
-    Include/console.h
+    Include/console.h \
+    Include/engine.h
 
 SOURCES += \
     Source/Component/Component.cpp \
@@ -23,7 +24,8 @@ SOURCES += \
     Source/Graphics/screen.cpp \
     Source/main.cpp \
     Source/Core/audio.cpp \
-    Source/System/console.cpp
+    Source/System/console.cpp \
+    Source/Core/engine.cpp
 
 CONFIG += console
 CONFIG += c++11
