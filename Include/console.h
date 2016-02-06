@@ -25,6 +25,10 @@ public:
    static void sprintToConsole(QString data);
     Ui::console *getConsole(){return ui;}
 
+    template<typename t>
+    void operator<<(t data){ printToConsole(QString(data));}
+
+
 public slots:
     void recieveInput(QString data);
 

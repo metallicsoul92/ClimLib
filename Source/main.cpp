@@ -27,8 +27,9 @@ int main(int argc, char *argv[])
     Audio test = Audio("Test","Test.wav");
     QApplication app(argc,argv);
     Engine engine = Engine(&app,"ClimLib ","0.0.2.0",true);
-
-
+    engine.getConsole()->printToConsole("Inside main Function");
+    test.play();
+    engine.update();
 //    ApplicationTitle += ENGINETITLE;
 //    ApplicationTitle += " Version ";
 //    ApplicationTitle += VERSION;

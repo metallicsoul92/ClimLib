@@ -11,11 +11,13 @@ HEADERS += \
     Include/screen.h \
     Include/audio.h \
     Include/console.h \
-    Include/engine.h
+    Include/mouse.h \
+    Include/engine.h \
+    Include/keyboard.h \
+    Include/inputdevice.h
 
 SOURCES += \
     Source/Component/Component.cpp \
-    Source/Math/MathFunctions.cpp \
     Source/System/Buffer.cpp \
     Source/System/Debugger.cpp \
     Source/System/Logger.cpp \
@@ -25,7 +27,10 @@ SOURCES += \
     Source/main.cpp \
     Source/Core/audio.cpp \
     Source/System/console.cpp \
-    Source/Core/engine.cpp
+    Source/System/mouse.cpp\
+    Source/Core/engine.cpp \
+    Source/Math/MathFunctions.cpp \
+    Source/System/inputdevice.cpp
 
 CONFIG += console
 CONFIG += c++11

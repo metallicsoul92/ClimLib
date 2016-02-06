@@ -20,6 +20,13 @@ namespace clim{
 				this->y = 0;
 				
 			}
+            vec2(vec2<t> *temp){
+                this->x= temp->x;
+                this->y = temp->y;
+
+            }
+
+
 		};
 		template<typename t>
 		struct vec3{
