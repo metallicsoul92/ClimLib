@@ -27,7 +27,7 @@ namespace clim{
 		return listOfComponents;
 	}
 	Component* Entity::getComponent(std::string name){
-      int x = 0;
+      unsigned int x = 0;
         do{
             if (this->listOfComponents.at(x)->getName() == name)
                 return listOfComponents.at(x);
@@ -45,7 +45,7 @@ namespace clim{
 		}
 	}
 	bool Entity::hasComponent(int id){
-       int x = 0;
+       unsigned int x = 0;
        do{
             if (this->listOfComponents.at(x)->getId() == id){
 				return true;
@@ -99,7 +99,7 @@ namespace clim{
 
 	Entity* Entity::findChildByName(std::string name){
 
-        int x = 0;
+       unsigned int x = 0;
         do{
             if (this->m_children.at(x)->getName() == name){
                 return this->m_children.at(x);
@@ -112,7 +112,7 @@ namespace clim{
 	std::vector<Entity*> Entity::findAllChildrenByName(std::string name){
 
 		std::vector<Entity*> temp;
-    int x = 0;
+    unsigned int x = 0;
     do{
         if (this->m_children.at(x)->getName() == name){
                 temp.push_back(this->m_children.at(x));

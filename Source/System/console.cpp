@@ -37,3 +37,4 @@ void console::recieveInput(QString data){
 
 }
 }
+

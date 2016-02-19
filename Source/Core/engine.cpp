@@ -1,13 +1,31 @@
 #include "../../Include/engine.h"
 #include "../../Include/platform.h"
-
+#include "../../Include/keyboard.h"
+#include <Qt>
 namespace clim{
     namespace core{
+     static Engine *instance;
+    Engine *Engine::getInstance()
+    {
+        return instance;
+    }
+
+    Engine::Engine(Engine &e) : QObject()
+    {
+        EngineTitle = e.getEngineTitle();
+        EngineVersion = e.getEngineVersion();
+        screen = e.getScreen();
+        application = e.getApplication();
+        console = e.getConsole();
+        screen = e.getScreen();
+
+
+    }
 
     Engine::Engine(QApplication *a,QString title,QString version, bool debug) : EngineTitle(title),
-    EngineVersion(version),isDebugging(debug), application(a) , mouse(new system::mouseDevice(0)){
+    EngineVersion(version),isDebugging(debug), application(a){
 
-        this->screen = new graphics::Screen();
+        this->screen = new graphics::Screen;
         this->console = new system::console;
         QString at;
         at += this->EngineTitle;
@@ -21,14 +39,44 @@ namespace clim{
         plat = "Platform: ";
         plat.append(QString(system::platformToString(system::detectPlatform()).c_str()));
         console->printToConsole("Initialization of ClimLib v 0.0.2.0");
+        console->printToConsole(plat);
+        this->installEventFilter(new system::keyboard());
         screen->show();
-
         isRunning= true;
+
+        instance = this;
+
+        connect(screen,SIGNAL(destroyed()),application,SLOT(quit()));
+        connect(screen,SIGNAL(destroyed()),console,SLOT(close()));
     }
+
+    system::console *Engine::getConsole(){return console;}
+
+    int Engine::exec(){
+        return application->exec();
+    }
+
+    QString Engine::getEngineTitle(){return EngineTitle;}
+
+    QString Engine::getEngineVersion(){return EngineVersion;}
+
+    QApplication *Engine::getApplication(){return application;}
+
+    graphics::Screen *Engine::getScreen(){return screen;}
 
     void Engine::update(){
         while(isRunning){
-            console->printToConsole(mouse->toQString());
+
+            if(!screen->isOpen){
+                isRunning = false;
+            }
+
+           // Grab Logic information
+
+            //Update graphics
+
+            //run Execute
+            exec();
          }
     }
 

@@ -8,6 +8,7 @@ Screen::Screen():
 QOpenGLWindow()
 {
     showNormal ();
+    isOpen = true;
 }
 void Screen::setupScreen(const QString title, int width, int height){
     this->setTitle(title);
@@ -70,6 +71,7 @@ void Screen::paintGL ()
     glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear screen and depth buffer
     glLoadIdentity (); // reset the current model view matrix
 }
+
 
 void Screen::keyPressEvent (QKeyEvent * event)
 {

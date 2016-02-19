@@ -25,8 +25,8 @@ QString ApplicationTitle;
 int main(int argc, char *argv[])
 {
     Audio test = Audio("Test","Test.wav");
-    QApplication app(argc,argv);
-    Engine engine = Engine(&app,"ClimLib ","0.0.2.0",true);
+
+    Engine engine(new QApplication(argc,argv),"ClimLib ","0.0.2.0",true);
     engine.getConsole()->printToConsole("Inside main Function");
     test.play();
     engine.update();
@@ -58,7 +58,7 @@ int main(int argc, char *argv[])
 //      system::logger.cwriteToDebugLog(&c,std::to_string(s.x()).c_str());
 //      system::logger.cwriteToDebugLog(&c,std::to_string(s.y()).c_str());
 
-      return app.exec();
+      return engine.exec();
 
 }
 

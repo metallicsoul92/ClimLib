@@ -9,23 +9,33 @@
 //User Created
 #include "screen.h"
 #include "console.h"
-#include "mouse.h"
+
+
 namespace clim{
     namespace core{
 
 
 
-        class Engine{
+        class Engine: public QObject{
 
 
         public:
-            Engine(QApplication *a,QString title,QString version, bool debug);
-            system::console *getConsole(){return console;}
-            system::mouseDevice *getMouse(){return mouse;}
-           void update();
 
+          static Engine *getInstance();
+          explicit Engine(Engine &e);
+           explicit Engine(QApplication *a,QString title,QString version, bool debug);
+            system::console *getConsole();
+           void update();
+        int exec();
+
+
+        QString getEngineTitle();
+        QString getEngineVersion();
+        QApplication *getApplication();
+        graphics::Screen *getScreen();
 
         private:
+
             bool isRunning;
             QString EngineTitle;
             QString EngineVersion;
@@ -33,7 +43,7 @@ namespace clim{
             graphics::Screen *screen;
             system::console *console;
             QApplication *application;
-            system::mouseDevice *mouse;
+
         };
     }
 }

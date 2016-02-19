@@ -3,16 +3,36 @@
 
 #include <QKeyEvent>
 
+
+//User created
+#include "engine.h"
+
+
 namespace clim{
+
+
+using namespace core;
+
     namespace system{
 
-    class Keyboard{
 
+
+
+    class keyboard : public QObject {
+        Q_OBJECT
+
+
+        // QObject interface
     public:
+       explicit keyboard();
+        bool event(QEvent *event);
+        bool eventFilter(QObject *object, QEvent *event);
 
-    private:
+    protected:
 
+        Engine *engine;
     };
+
     }
 }
 
