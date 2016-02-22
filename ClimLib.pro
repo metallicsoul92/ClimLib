@@ -12,7 +12,9 @@ HEADERS += \
     Include/audio.h \
     Include/console.h \
     Include/engine.h \
-    Include/keyboard.h
+    Include/keyboard.h \
+    Include/mouse.h \
+    Include/shader.h
 
 SOURCES += \
     Source/Component/Component.cpp \
@@ -27,7 +29,9 @@ SOURCES += \
     Source/System/console.cpp \
     Source/Core/engine.cpp \
     Source/Math/MathFunctions.cpp \
-    Source/System/keyboard.cpp
+    Source/System/keyboard.cpp \
+    Source/System/mouse.cpp \
+    Source/Graphics/shader.cpp
 
 CONFIG += console
 CONFIG += c++11

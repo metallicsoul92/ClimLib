@@ -29,6 +29,7 @@ namespace clim{
         int exec();
 
 
+
         QString getEngineTitle();
         QString getEngineVersion();
         QApplication *getApplication();

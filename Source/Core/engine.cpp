@@ -4,11 +4,6 @@
 #include <Qt>
 namespace clim{
     namespace core{
-     static Engine *instance;
-    Engine *Engine::getInstance()
-    {
-        return instance;
-    }
 
     Engine::Engine(Engine &e) : QObject()
     {
@@ -40,11 +35,9 @@ namespace clim{
         plat.append(QString(system::platformToString(system::detectPlatform()).c_str()));
         console->printToConsole("Initialization of ClimLib v 0.0.2.0");
         console->printToConsole(plat);
-        this->installEventFilter(new system::keyboard());
         screen->show();
         isRunning= true;
 
-        instance = this;
 
         connect(screen,SIGNAL(destroyed()),application,SLOT(quit()));
         connect(screen,SIGNAL(destroyed()),console,SLOT(close()));
@@ -63,6 +56,9 @@ namespace clim{
     QApplication *Engine::getApplication(){return application;}
 
     graphics::Screen *Engine::getScreen(){return screen;}
+
+
+
 
     void Engine::update(){
         while(isRunning){

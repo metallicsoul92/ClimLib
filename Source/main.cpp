@@ -1,6 +1,14 @@
+
+//libraries
 #include <QApplication>
 #include <QString>
 #include <QtGui>
+#include <QMessageBox>
+
+//User Defined
+
+#include "Include/keyboard.h"
+#include "include/mouse.h"
 #include "Include/platform.h"
 #include "Include/screen.h"
 #include "Include/Debugger.h"
@@ -8,7 +16,6 @@
 #include "Include/audio.h"
 #include "Include/fileutils.h"
 #include "Include/console.h"
-#include <QMessageBox>
 #include "Include/engine.h"
 #define VERSION "0.0.2.0"
 #define ENGINETITLE "ClimLib"
@@ -29,6 +36,8 @@ int main(int argc, char *argv[])
     Engine engine(new QApplication(argc,argv),"ClimLib ","0.0.2.0",true);
     engine.getConsole()->printToConsole("Inside main Function");
     test.play();
+    system::keyboard keyboard(&engine);
+    system::mouse mouse(&engine);
     engine.update();
 //    ApplicationTitle += ENGINETITLE;
 //    ApplicationTitle += " Version ";

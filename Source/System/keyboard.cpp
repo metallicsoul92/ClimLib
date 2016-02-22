@@ -5,8 +5,11 @@
 namespace clim{
     namespace system{
 
-    keyboard::keyboard() : engine(core::Engine::getInstance())
+    keyboard::keyboard(Engine *engine) : engine(engine)
     {
+        for(int i = 0; i < MAX_KEYBOARD_KEYS;i++){
+            m_key[i] = false;
+        }
         engine->getScreen()->installEventFilter(this);
     }
 
@@ -17,14 +20,25 @@ namespace clim{
 
     bool keyboard::eventFilter(QObject *object, QEvent *event)
     {
+
+        //TODO: ADD custom keys like : Key Pressed: Left_Arrow
+
            if ( event->type() == QEvent::KeyPress ) {  // key press
                QKeyEvent *k = (QKeyEvent*)event;
+               m_key[k->nativeVirtualKey()] = true;
                QString data = "Key Press: ";
                data.append(k->text());
               this->engine->getConsole()->printToConsole(data);
                return true;                        // eat event
            }
-           return eventFilter( object, event );    // standard event processing
+           else if( event->type() == QEvent::KeyRelease){
+               QKeyEvent *k = (QKeyEvent*)event;
+               m_key[k->nativeVirtualKey()] = false;
+               QString data = "Key release ";
+               this->engine->getConsole()->printToConsole(data);
+            return true;
+           }
+           return QObject::eventFilter( object, event );    // standard event processing
        }
 
 
