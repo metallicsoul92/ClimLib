@@ -6,7 +6,7 @@
 #include <QMessageBox>
 
 //User Defined
-
+#include "Include/stringutils.h"
 #include "Include/keyboard.h"
 #include "include/mouse.h"
 #include "Include/platform.h"
@@ -31,11 +31,22 @@ QString ApplicationTitle;
 
 int main(int argc, char *argv[])
 {
-    Audio test = Audio("Test","Test.wav");
+
+    std::vector<std::string> test;
+    std::string testing = "Hello world this is tokenization testing";
+    test = stringUtils::tokenize(testing);
+
+
+    Audio atest = Audio("Test","Test.wav");
 
     Engine engine(new QApplication(argc,argv),"ClimLib ","0.0.2.0",true);
     engine.getConsole()->printToConsole("Inside main Function");
-    test.play();
+
+    for(unsigned int i= 0; i< test.size();i++){
+        engine.getConsole()->printToConsole(test[i].c_str());
+    }
+
+    //test.play();
     system::keyboard keyboard(&engine);
     system::mouse mouse(&engine);
     engine.update();

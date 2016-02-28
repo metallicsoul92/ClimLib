@@ -8,7 +8,7 @@
 
 //User Defined Headers
 #include "MathTypes.h"
-
+#include "shaderuniform.h"
 //User Defines
 #define filePath ".csm"
 #define MaxSources 5
@@ -17,7 +17,7 @@ namespace clim{
 namespace graphics{
 
 
-    enum class SHADER_TYPE { VERTEX=0 ,FRAGMENT=1,GEOMETRY=2, TESSALATION1=3,TESSALATION2=4};
+    enum class SHADER_TYPE { VERTEX=0 , TESSALATION1=1,TESSALATION2=2,GEOMETRY=3, FRAGMENT=4};
 
     /*SHADER TYPES:
      *
@@ -87,9 +87,10 @@ namespace graphics{
         QString m_filepath;
         QVector<QString> m_sources;
         QVector<QString> m_sourceFilePath;
+        QVector<ShaderUniform> uniforms;
         quint32 m_ShaderID;
 
-        quint32 load(const char* vertSrc, const char* fragSrc) const;
+        quint32 load() const;
         int getUniformLocation(const GLchar* name) const;
 
     public:
@@ -98,7 +99,7 @@ namespace graphics{
         ~Shader();
 
 
-        void addSource(const QString& source);
+        void addSource(SHADER_TYPE type, const QString &source);
         void setUniform1f(const QString& name, float value);
         void setUniform1fv(const QString& name, float* value, int count);
         void setUniform1i(const QString& name, int value);
@@ -112,15 +113,17 @@ namespace graphics{
         void resolveAndSetUniform(uint index, byte* data);
         void resolveAndSetUniforms(byte* data, uint size);
 
-        void bind() const;
+        void bind();
         void unbind() const;
 
         bool hasUniform(const QString& name) const;
 
-
+        const char** SourceToFunction(const QString source);
         static Shader* FromFile(const char* vertPath, const char* fragPath);
         static Shader* FromSource(const char* vertSrc, const char* fragSrc);
         static Shader* FromSource(const char* name, const char* vertSrc, const char* fragSrc);
+        QVector<ShaderUniform> getUniforms() const;
+        void setUniforms();
     };
 
 }

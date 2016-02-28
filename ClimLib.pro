@@ -14,7 +14,9 @@ HEADERS += \
     Include/engine.h \
     Include/keyboard.h \
     Include/mouse.h \
-    Include/shader.h
+    Include/shader.h \
+    Include/shaderuniform.h \
+    Include/stringutils.h
 
 SOURCES += \
     Source/Component/Component.cpp \
@@ -31,7 +33,8 @@ SOURCES += \
     Source/Math/MathFunctions.cpp \
     Source/System/keyboard.cpp \
     Source/System/mouse.cpp \
-    Source/Graphics/shader.cpp
+    Source/Graphics/shader.cpp \
+    Source/Graphics/shaderuniform.cpp
 
 CONFIG += console
 CONFIG += c++11
