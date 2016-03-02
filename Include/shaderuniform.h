@@ -4,6 +4,7 @@
 //QT Headers
 #include <QString>
 #include <QVariant>
+#include <QOpenGLFunctions>
 
 //User Defined Headers
 
@@ -23,12 +24,18 @@ namespace clim{
         private:
         QString m_name;
         ShaderUniformType m_type;
-        QVariant m_value;
+        GLsizei m_size;
+        GLint m_location;
+        QVariant *m_value;
 
     public:
-        ShaderUniform(QString name,ShaderUniformType type,QVariant data)
+        ShaderUniform(QString name,ShaderUniformType type,QVariant *data)
             : m_name(name),m_type(type),m_value(data)
         {
+
+        }
+
+        ShaderUniform(){
 
         }
         ~ShaderUniform()
@@ -49,14 +56,22 @@ namespace clim{
         {
             m_name = name;
         }
-        QVariant getValue() const
+        QVariant *getValue() const
         {
             return m_value;
         }
-        void setValue(const QVariant &value)
+        void setValue(QVariant value)
         {
-            m_value = value;
+            m_value = createVariant(value);
         }
+        GLsizei getSize() const;
+        void setSize(const GLsizei &value);
+        GLint getLocation() const;
+        void setLocation(const GLint &location);
+        ShaderUniformType getType() const;
+        void setType(const ShaderUniformType &type);
+
+        static QVariant *createVariant(QVariant variant){ return new QVariant(variant);}
     };
 
 

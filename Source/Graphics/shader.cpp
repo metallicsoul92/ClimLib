@@ -1,15 +1,16 @@
 #include "../../Include/shader.h"
 #include "../../Include/Logger.h"
 #include <QOpenGLFunctions>
+#include <QOpenGLFunctions_4_3_Core>
 namespace clim{
 namespace graphics{
-    QOpenGLFunctions oglfunc;
+    QOpenGLFunctions_4_3_Core oglfunc;
 
 
 
 
 
-    QVector<ShaderUniform> Shader::getUniforms() const
+    QVector<ShaderUniform*> Shader::getUniforms()
     {
         return uniforms;
     }
@@ -116,14 +117,89 @@ namespace graphics{
                     return 0;
                 }
 
+                //attach all shaders to the program
                 oglfunc.glAttachShader(program, vertex);
+                oglfunc.glAttachShader(program, tessalation1);
+                oglfunc.glAttachShader(program, tessalation2);
+                oglfunc.glAttachShader(program, geometry);
                 oglfunc.glAttachShader(program, fragment);
-
-               oglfunc.glLinkProgram(program);
+                //Link the program
+                oglfunc.glLinkProgram(program);
                 oglfunc.glValidateProgram(program);
 
+                //set shader uniforms
+                GLint count;
+                oglfunc.glGetProgramInterfaceiv(program, GL_UNIFORM, GL_ACTIVE_RESOURCES, &count);
+
+                for(int i = 0; i < count; i++){
+                 ShaderUniform *temp = new ShaderUniform();
+                        GLsizei actualLength =0;
+                    GLchar *nameData;
+                    GLint arraySize = 0;
+                    GLenum type = 0;
+                    std::string tempstr;
+                    int maxSize = tempstr.max_size();
+                    oglfunc.glGetActiveUniform(program,i,maxSize,&actualLength, &arraySize, &type, nameData);
+                    temp->setName(nameData);
+                    temp->setSize(actualLength);
+                    temp->setLocation(oglfunc.glGetUniformLocation(program,nameData));
+                    union{
+                        float *fvalue;
+                        int *ivalue;
+                        double *dvalue;
+                    };
+                    switch(type){
+                    case GL_FLOAT:
+                        temp->setType(SUT_FLOAT);
+                        oglfunc.glGetUniformfv(program,temp->getLocation(),fvalue);
+                        temp->setValue(QVariant::fromValue(fvalue));
+                          break;
+                    case GL_FLOAT_VEC2:
+                        temp->setType(SUT_VEC2);
+                        oglfunc.glGetUniformfv(program,temp->getLocation(),fvalue);
+                        temp->setValue(QVariant::fromValue(fvalue));
+                          break;
+                    case GL_FLOAT_VEC3:
+                        temp->setType(SUT_VEC3);
+                        oglfunc.glGetUniformfv(program,temp->getLocation(),fvalue);
+                        temp->setValue(QVariant::fromValue(fvalue));
+                          break;
+                    case GL_FLOAT_VEC4:
+                        temp->setType(SUT_VEC4);
+                        oglfunc.glGetUniformfv(program,temp->getLocation(),fvalue);
+                        temp->setValue(QVariant::fromValue(fvalue));
+                          break;
+                    case GL_INT:
+                        temp->setType(SUT_INT);
+                        oglfunc.glGetUniformiv(program,temp->getLocation(),ivalue);
+                        temp->setValue(QVariant::fromValue(ivalue));
+                          break;
+                    case GL_INT_VEC2:
+                        temp->setType(SUT_IVEC2);
+                        oglfunc.glGetUniformiv(program,temp->getLocation(),ivalue);
+                        temp->setValue(QVariant::fromValue(ivalue));
+                          break;
+                    case GL_INT_VEC3:
+                        temp->setType(SUT_IVEC3);
+                        oglfunc.glGetUniformiv(program,temp->getLocation(),ivalue);
+                        temp->setValue(QVariant::fromValue(ivalue));
+                          break;
+                    case GL_INT_VEC4:
+                        temp->setType(SUT_IVEC4);
+                        oglfunc.glGetUniformiv(program,temp->getLocation(),ivalue);
+                        temp->setValue(QVariant::fromValue(ivalue));
+                        break;
+                    }
+                uniforms.push_back(temp);
+                }
+
+
                 oglfunc.glDeleteShader(vertex);
+                oglfunc.glDeleteShader(tessalation1);
+                oglfunc.glDeleteShader(tessalation2);
+                oglfunc.glDeleteShader(geometry);
                 oglfunc.glDeleteShader(fragment);
+
 
                 return program;
 
@@ -210,6 +286,15 @@ void Shader::setUniformMat4(const QString &name, const math::mat4<float> &matrix
 {
 
     oglfunc.glUniformMatrix4fv(getUniformLocation((GLchar *)name.toStdString().c_str()),1,GL_FALSE,matrix.element);
+}
+
+void Shader::setUniform(QString &name,QVariant *data) const
+{
+    for(int i = 0 ; i < uniforms.size(); i++){
+        if(uniforms.at(i)->getName() == name){
+            uniforms.at(i)->setValue(QVariant::fromValue(data));
+        }
+    }
 }
 
 void Shader::bind()
