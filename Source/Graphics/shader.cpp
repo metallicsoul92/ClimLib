@@ -15,7 +15,7 @@ namespace graphics{
         return uniforms;
     }
 
-    quint32 Shader::load() const
+    quint32 Shader::load()
     {
         auto program = oglfunc.glCreateProgram();
         auto vertex = oglfunc.glCreateShader(GL_VERTEX_SHADER);
@@ -152,42 +152,42 @@ namespace graphics{
                     case GL_FLOAT:
                         temp->setType(SUT_FLOAT);
                         oglfunc.glGetUniformfv(program,temp->getLocation(),fvalue);
-                        temp->setValue(QVariant::fromValue(fvalue));
-                          break;
-                    case GL_FLOAT_VEC2:
-                        temp->setType(SUT_VEC2);
-                        oglfunc.glGetUniformfv(program,temp->getLocation(),fvalue);
-                        temp->setValue(QVariant::fromValue(fvalue));
-                          break;
-                    case GL_FLOAT_VEC3:
-                        temp->setType(SUT_VEC3);
-                        oglfunc.glGetUniformfv(program,temp->getLocation(),fvalue);
-                        temp->setValue(QVariant::fromValue(fvalue));
-                          break;
-                    case GL_FLOAT_VEC4:
-                        temp->setType(SUT_VEC4);
-                        oglfunc.glGetUniformfv(program,temp->getLocation(),fvalue);
-                        temp->setValue(QVariant::fromValue(fvalue));
+                        temp->setValue<float>(*fvalue);
                           break;
                     case GL_INT:
                         temp->setType(SUT_INT);
                         oglfunc.glGetUniformiv(program,temp->getLocation(),ivalue);
-                        temp->setValue(QVariant::fromValue(ivalue));
+                        temp->setValue<int>(*ivalue);
+                          break;
+                    case GL_FLOAT_VEC2:
+                        temp->setType(SUT_VEC2);
+                        oglfunc.glGetUniformfv(program,temp->getLocation(),fvalue);
+                        temp->setValue<math::vec2<float>>(math::vec2<float>(fvalue[0],fvalue[1]));
+                          break;
+                    case GL_FLOAT_VEC3:
+                        temp->setType(SUT_VEC3);
+                        oglfunc.glGetUniformfv(program,temp->getLocation(),fvalue);
+                        temp->setValue<math::vec3<float>>(math::vec3<float>(fvalue[0],fvalue[1],fvalue[2]));
+                          break;
+                    case GL_FLOAT_VEC4:
+                        temp->setType(SUT_VEC4);
+                        oglfunc.glGetUniformfv(program,temp->getLocation(),fvalue);
+                        temp->setValue<math::vec4<float>>(math::vec4<float>(fvalue[0],fvalue[1],fvalue[2],fvalue[3]));
                           break;
                     case GL_INT_VEC2:
                         temp->setType(SUT_IVEC2);
                         oglfunc.glGetUniformiv(program,temp->getLocation(),ivalue);
-                        temp->setValue(QVariant::fromValue(ivalue));
+                        temp->setValue<math::vec2<int>>(math::vec2<int>(ivalue[0],ivalue[1]));
                           break;
                     case GL_INT_VEC3:
                         temp->setType(SUT_IVEC3);
                         oglfunc.glGetUniformiv(program,temp->getLocation(),ivalue);
-                        temp->setValue(QVariant::fromValue(ivalue));
+                        temp->setValue<math::vec3<int>>(math::vec3<int>(ivalue[0],ivalue[1],ivalue[2]));
                           break;
                     case GL_INT_VEC4:
                         temp->setType(SUT_IVEC4);
                         oglfunc.glGetUniformiv(program,temp->getLocation(),ivalue);
-                        temp->setValue(QVariant::fromValue(ivalue));
+                        temp->setValue<math::vec4<int>>(math::vec4<int>(ivalue[0],ivalue[1],ivalue[2],ivalue[3]));
                         break;
                     }
                 uniforms.push_back(temp);
@@ -288,15 +288,6 @@ void Shader::setUniformMat4(const QString &name, const math::mat4<float> &matrix
     oglfunc.glUniformMatrix4fv(getUniformLocation((GLchar *)name.toStdString().c_str()),1,GL_FALSE,matrix.element);
 }
 
-void Shader::setUniform(QString &name,QVariant *data) const
-{
-    for(int i = 0 ; i < uniforms.size(); i++){
-        if(uniforms.at(i)->getName() == name){
-            uniforms.at(i)->setValue(QVariant::fromValue(data));
-        }
-    }
-}
-
 void Shader::bind()
 {
     this->m_ShaderID = load();
@@ -310,7 +301,12 @@ void Shader::unbind() const
 
 bool Shader::hasUniform(const QString &name) const
 {
-
+        for(int i = 0; i < uniforms.size();i++){
+            if (uniforms[i]->getName().contains(name)){
+                return true;
+            }
+        }
+        return false;
 }
 
 

@@ -17,13 +17,14 @@ namespace clim{
 
 
         class Engine: public QObject{
-
+        Q_OBJECT;
 
         public:
 
           static Engine *getInstance();
           explicit Engine(Engine &e);
            explicit Engine(QApplication *a,QString title,QString version, bool debug);
+          ~Engine();
             system::console *getConsole();
            void update();
         int exec();

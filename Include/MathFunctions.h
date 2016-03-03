@@ -5,7 +5,7 @@
 
 //QT Related files
 #include <QString>
-
+#include <QMetaType>
 #include "MathTypes.h"
 #include <iostream>
 
@@ -14,6 +14,7 @@
 #endif //M_PI
 namespace clim{
 	namespace math{
+
 
 
     float toRadians(float degrees);
@@ -424,5 +425,10 @@ namespace clim{
 		}
 
 }
+
+Q_DECLARE_METATYPE_TEMPLATE_1ARG(clim::math::vec2)
+Q_DECLARE_METATYPE_TEMPLATE_1ARG(clim::math::vec3)
+Q_DECLARE_METATYPE_TEMPLATE_1ARG(clim::math::vec4)
+Q_DECLARE_METATYPE_TEMPLATE_1ARG(clim::math::mat4)
 
 #endif // end math functions

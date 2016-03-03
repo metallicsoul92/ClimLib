@@ -90,7 +90,7 @@ namespace graphics{
         QVector<ShaderUniform*> uniforms;
         quint32 m_ShaderID;
 
-        quint32 load() const;
+        quint32 load() ;
         int getUniformLocation(const GLchar* name) const;
 
     public:
@@ -109,7 +109,14 @@ namespace graphics{
         void setUniform4f(const QString& name, const math::vec4<float>& vector);
         void setUniformMat4(const QString& name, const math::mat4<float>& matrix);
 
-        void setUniform(QString& name, QVariant *data) const;
+        template<typename T>
+        void setUniform(QString& name, T *data){
+            for(int i = 0; i< uniforms.size() ; i++){
+                if(uniforms[i]->getName().contains(name)){
+                   uniforms[i]->setValue(data);
+                }
+            }
+        }
 
         void bind();
         void unbind() const;

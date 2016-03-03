@@ -43,6 +43,13 @@ namespace clim{
         connect(screen,SIGNAL(destroyed()),console,SLOT(close()));
     }
 
+    Engine::~Engine()
+    {
+        application->exit();
+        screen->destroy();
+        delete this;
+    }
+
     system::console *Engine::getConsole(){return console;}
 
     int Engine::exec(){

@@ -1,5 +1,7 @@
 #ifndef MATHTYPES_H
 #define MATHTYPES_H
+#include <QMetaType>
+
 
 namespace clim{
 	namespace math{
@@ -28,7 +30,7 @@ namespace clim{
 
 
 		};
-		template<typename t>
+        template<typename t>
 		struct vec3{
 			t x;
 			t y;
@@ -48,7 +50,7 @@ namespace clim{
 				this->z = 0;
 			}
 		};
-		template<typename t>
+        template<typename t>
 		struct vec4{
 			t x;
 			t y;
@@ -70,8 +72,8 @@ namespace clim{
 				this->z = 0;
 				this->w = 0;
 			}
-		};
-						
+        };
+
 		template<typename t>
 		struct mat4{
 			t element[16];
@@ -81,7 +83,8 @@ namespace clim{
 		typedef vec2<unsigned int> vec2ui;
 		typedef vec2<float> vec2f;
 		typedef vec2<double> vec2d;
-	
+
+
 		typedef vec3<int> vec3i;
 		typedef vec3<unsigned int> vec3ui;
 		typedef vec3<float> vec3f;

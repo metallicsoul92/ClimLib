@@ -60,9 +60,10 @@ namespace clim{
         {
             return m_value;
         }
-        void setValue(QVariant value)
+        template<typename t>
+        void setValue(t value)
         {
-            m_value = createVariant(value);
+            m_value->setValue(value);
         }
         GLsizei getSize() const;
         void setSize(const GLsizei &value);
