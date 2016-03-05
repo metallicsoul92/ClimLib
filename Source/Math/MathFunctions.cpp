@@ -1,6 +1,6 @@
 #include "../../Include/MathFunctions.h"
-
-
+#include "../../Include/mat4.h"
+#include "../../Include/vec3.h"
 
 namespace clim{
 	namespace math{
@@ -11,21 +11,16 @@ namespace clim{
 
     mat4<float> orthographic(float left, float right, float bottom, float top, float near, float far){
 
-         mat4<float> result;
-         result.element[0 + 0 * 4] = 1;
-         result.element[1 + 1 * 4] = 1;
-         result.element[2 + 2 * 4] = 1;
-         result.element[3 + 3 * 4] = 1;
+         mat4<float> result(1);
 
-         result.element[0 + 0 * 4] = 2 / (right - left);
+        result.setElement(0+0*4, 2/(right-left));
+        result.setElement(1+1*4,2/(top-bottom));
+        result.setElement(2+2*4, 2/(near-far));
 
-         result.element[1 + 1 * 4] = 2 / (top - bottom);
+        result.setElement(0+3*4, (left+right)/(left-right));
+        result.setElement(1+3*4 , (bottom+top)/(bottom-top));
+        result.setElement(2+3*4,(far+near)/(far- near));
 
-         result.element[2 + 2 * 4] = 2 / (near - far);
-
-         result.element[0 + 3 * 4] = (left + right) / (left - right);
-         result.element[1 + 3 * 4] = (bottom + top) / (bottom - top);
-         result.element[2 + 3 * 4] = (far + near) / (far - near);
 
          return result;
      }
@@ -41,11 +36,11 @@ namespace clim{
     float b = ( near + far ) / ( near - far );
     float c = (2 * near * far) / (near - far);
 
-    result.element[0 + 0 * 4] = a;
-    result.element[1 + 1 * 4] = q;
-    result.element[2 + 2 * 4] = b;
-    result.element[3 + 2 * 4] = -1;
-    result.element[2 + 3 * 4] = c;
+    result.setElement(0 + 0 * 4 , a);
+    result.setElement(1 + 1 * 4 , q);
+    result.setElement(2 + 2 * 4 , b);
+    result.setElement(3 + 2 * 4 , -1);
+    result.setElement(2 + 3 * 4, c);
 
     return result;
 }

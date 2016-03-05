@@ -14,7 +14,7 @@ void Screen::setupScreen(const QString title, int width, int height){
     this->setTitle(title);
     this->setWidth(width);
     this->setHeight(height);
-    this->Dimension = math::create_vec2<int>(width,height);
+    this->Dimension = math::vec2<int>(width,height);
 }
 
 Screen :: ~ Screen()
@@ -46,7 +46,7 @@ void Screen ::resizeGL(int w, int h)
 
     glMatrixMode (GL_MODELVIEW); // Select the model view matrix
     glLoadIdentity (); // reset modelview matrix
-    this->Dimension =clim::math::create_vec2<int>(w,h);
+    this->Dimension =clim::math::vec2<int>(w,h);
 }
 
 

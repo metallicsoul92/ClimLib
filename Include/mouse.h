@@ -31,7 +31,7 @@ using namespace core;
         bool eventFilter(QObject *object, QEvent *event);
 
     protected:
-        math::vec2i m_position;
+        math::vec2<int> m_position;
         bool m_button[MAX_MOUSE_KEYS];
         Engine *engine;
     };

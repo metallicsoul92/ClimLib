@@ -162,18 +162,21 @@ namespace graphics{
                     case GL_FLOAT_VEC2:
                         temp->setType(SUT_VEC2);
                         oglfunc.glGetUniformfv(program,temp->getLocation(),fvalue);
+                        //temp->setValue<math::vec2<float>>(math::vec2<float>(fvalue[0],fvalue[1]));
                         temp->setValue<math::vec2<float>>(math::vec2<float>(fvalue[0],fvalue[1]));
                           break;
                     case GL_FLOAT_VEC3:
                         temp->setType(SUT_VEC3);
                         oglfunc.glGetUniformfv(program,temp->getLocation(),fvalue);
+                       // temp->setValue<math::vec3<float>>(math::vec3<float>(fvalue[0],fvalue[1],fvalue[2]));
                         temp->setValue<math::vec3<float>>(math::vec3<float>(fvalue[0],fvalue[1],fvalue[2]));
                           break;
                     case GL_FLOAT_VEC4:
                         temp->setType(SUT_VEC4);
                         oglfunc.glGetUniformfv(program,temp->getLocation(),fvalue);
+                        //temp->setValue<math::vec4<float>>(math::vec4<float>(fvalue[0],fvalue[1],fvalue[2],fvalue[3]));
                         temp->setValue<math::vec4<float>>(math::vec4<float>(fvalue[0],fvalue[1],fvalue[2],fvalue[3]));
-                          break;
+                        break;
                     case GL_INT_VEC2:
                         temp->setType(SUT_IVEC2);
                         oglfunc.glGetUniformiv(program,temp->getLocation(),ivalue);
@@ -221,17 +224,33 @@ int Shader::getUniformLocation(const GLchar *name) const
     return result;
 }
 
+Shader::Shader(const QString &name):m_name(name)
+{
+    m_sources = QVector<QString>(5);
+    isInitialized = false;
+}
+
 Shader::Shader(const QString &name, const QString *vertSource, const QString *fragSource)  : m_name(name)
 {
        m_sources = QVector<QString>(5);
         m_sources[0] = vertSource->toStdString().c_str();
         m_sources[2] = fragSource->toStdString().c_str();
-        m_ShaderID = load();
+        isInitialized = false;
 }
 
 Shader::~Shader()
 {
+    delete this;
+}
 
+bool Shader::initialize()
+{
+    if(!isInitialized){
+    m_ShaderID = load();
+    isInitialized = true;
+    return true;
+    }else
+        return false;
 }
 
 void Shader::addSource(SHADER_TYPE type,const QString& source)
@@ -264,28 +283,35 @@ void Shader::setUniform1iv(const QString &name, int *value, int count)
     oglfunc.glUniform1iv(getUniformLocation((GLchar *)name.toStdString().c_str()),count, value);
 }
 
-void Shader::setUniform2f(const QString &name, const math::vec2<float> &vector)
+void Shader::setUniform2f(const QString &name, math::vec2<float> &vector)
 {
 
-    oglfunc.glUniform2f(getUniformLocation((GLchar *)name.toStdString().c_str()),vector.x,vector.y);
+    oglfunc.glUniform2f(getUniformLocation((GLchar *)name.toStdString().c_str()),(GLfloat)vector.getX(),(GLfloat)vector.getY());
+
 }
 
-void Shader::setUniform3f(const QString &name, const math::vec3<float> &vector)
+void Shader::setUniform3f(const QString &name, math::vec3<float> &vector)
 {
 
-    oglfunc.glUniform3f(getUniformLocation((GLchar *)name.toStdString().c_str()),vector.x,vector.y,vector.z);
+
+    oglfunc.glUniform3f(getUniformLocation((GLchar *)name.toStdString().c_str()),vector.getX(),vector.getY(),vector.getZ());
 }
 
-void Shader::setUniform4f(const QString &name, const math::vec4<float> &vector)
+void Shader::setUniform4f(const QString &name, math::vec4<float> &vector)
 {
 
-    oglfunc.glUniform4f(getUniformLocation((GLchar *)name.toStdString().c_str()),vector.x,vector.y,vector.z,vector.w);
+    oglfunc.glUniform4f(getUniformLocation((GLchar *)name.toStdString().c_str()),vector.getX(),vector.getY(),vector.getZ(),vector.getW());
 }
 
-void Shader::setUniformMat4(const QString &name, const math::mat4<float> &matrix)
+void Shader::setUniformMat4(const QString &name, math::mat4<float> &matrix)
 {
+    GLfloat elements[16];
 
-    oglfunc.glUniformMatrix4fv(getUniformLocation((GLchar *)name.toStdString().c_str()),1,GL_FALSE,matrix.element);
+    for(int i = 0;i < 16; i++){
+        elements[i] = matrix.getElement(i);
+    }
+
+    oglfunc.glUniformMatrix4fv(getUniformLocation((GLchar *)name.toStdString().c_str()),1,GL_FALSE,elements);
 }
 
 void Shader::bind()

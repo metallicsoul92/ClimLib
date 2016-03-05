@@ -25,23 +25,23 @@ namespace clim{
 
          if(event->type() == QEvent::MouseMove){
            QMouseEvent* e = (QMouseEvent *)event;
-             m_position.x = e->x();
-             m_position.y = e->y();
+             m_position.setX(e->x());
+             m_position.setY(e->y());
              QString moveEvent = "Mouse Moved: ";
              moveEvent.append("X: ");
-             QString x = std::to_string(m_position.x).c_str();
+             QString x = std::to_string(m_position.getX()).c_str();
              moveEvent.append(x);
              moveEvent.append(", ");
              moveEvent.append("Y: ");
-             QString y = std::to_string(m_position.y).c_str();
+             QString y = std::to_string(m_position.getY()).c_str();
              moveEvent.append(y);
              engine->getConsole()->printToConsole(moveEvent);
            }
 
          else if(event->type() == QEvent::MouseButtonPress){
              QMouseEvent* e = (QMouseEvent *)event;
-               m_position.x = e->x();
-               m_position.y = e->y();
+               m_position.setX(e->x());
+               m_position.setY(e->y());
 
 
                switch(e->button()){
@@ -123,11 +123,11 @@ namespace clim{
 
                QString moveEvent = "Mouse Moved and Pressed: ";
                moveEvent.append("X: ");
-               QString x = std::to_string(m_position.x).c_str();
+               QString x = std::to_string(m_position.getX()).c_str();
                moveEvent.append(x);
                moveEvent.append(", ");
                moveEvent.append("Y: ");
-               QString y = std::to_string(m_position.y).c_str();
+               QString y = std::to_string(m_position.getY()).c_str();
                moveEvent.append(y);
                moveEvent.append(", ");
                moveEvent.append("Pressed: ");

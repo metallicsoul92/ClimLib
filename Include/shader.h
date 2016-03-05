@@ -90,6 +90,7 @@ namespace graphics{
         QVector<ShaderUniform*> uniforms;
         quint32 m_ShaderID;
 
+        bool isInitialized;
         quint32 load() ;
         int getUniformLocation(const GLchar* name) const;
 
@@ -98,16 +99,17 @@ namespace graphics{
         Shader(const QString& name, const QString *vertSource, const QString *fragSource );
         ~Shader();
 
+        bool initialize();
 
         void addSource(SHADER_TYPE type, const QString &source);
         void setUniform1f(const QString& name, float value);
         void setUniform1fv(const QString& name, float* value, int count);
         void setUniform1i(const QString& name, int value);
         void setUniform1iv(const QString& name, int* value, int count);
-        void setUniform2f(const QString& name, const math::vec2<float>& vector);
-        void setUniform3f(const QString& name, const math::vec3<float>& vector);
-        void setUniform4f(const QString& name, const math::vec4<float>& vector);
-        void setUniformMat4(const QString& name, const math::mat4<float>& matrix);
+        void setUniform2f(const QString& name,  math::vec2<float>& vector);
+        void setUniform3f(const QString& name,  math::vec3<float>& vector);
+        void setUniform4f(const QString& name,  math::vec4<float>& vector);
+        void setUniformMat4(const QString& name,  math::mat4<float>& matrix);
 
         template<typename T>
         void setUniform(QString& name, T *data){

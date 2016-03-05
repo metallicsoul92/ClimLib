@@ -7,7 +7,8 @@
 #include <GL/glu.h>
 #include <QtGui/QOpenGLWindow>
 
-#include "MathTypes.h"
+#include "MathFunctions.h"
+#include "vec2.h"
 
 namespace clim{
     namespace graphics{
@@ -34,7 +35,7 @@ namespace clim{
 
         void keyPressEvent(QKeyEvent *event);
     private:
-        clim::math::vec2i Dimension;
+        clim::math::vec2<int> Dimension;
 
         bool m_show_full_screen;
 
