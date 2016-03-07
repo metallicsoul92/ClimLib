@@ -20,7 +20,10 @@ HEADERS += \
     Include/vec2.h \
     Include/vec3.h \
     Include/vec4.h \
-    Include/mat4.h
+    Include/mat4.h \
+    Include/irenderable.h \
+    Include/renderer2d.h \
+    Include/renderable2d.h
 
 SOURCES += \
     Source/Component/Component.cpp \

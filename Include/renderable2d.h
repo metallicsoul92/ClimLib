@@ -1,0 +1,5 @@
+#ifndef RENDERABLE2D
+#define RENDERABLE2D
+
+#endif // RENDERABLE2D
+
