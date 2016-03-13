@@ -7,10 +7,12 @@ namespace graphics{
 Screen::Screen():
 QOpenGLWindow()
 {
+
     showNormal ();
     isOpen = true;
 }
 void Screen::setupScreen(const QString title, int width, int height){
+
     this->setTitle(title);
     this->setWidth(width);
     this->setHeight(height);

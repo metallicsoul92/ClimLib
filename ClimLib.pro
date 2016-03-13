@@ -23,7 +23,9 @@ HEADERS += \
     Include/mat4.h \
     Include/irenderable.h \
     Include/renderer2d.h \
-    Include/renderable2d.h
+    Include/renderable2d.h \
+    Include/vertexdata.h \
+    Include/transform.h
 
 SOURCES += \
     Source/Component/Component.cpp \
@@ -41,7 +43,9 @@ SOURCES += \
     Source/System/keyboard.cpp \
     Source/System/mouse.cpp \
     Source/Graphics/shader.cpp \
-    Source/Graphics/shaderuniform.cpp
+    Source/Graphics/shaderuniform.cpp \
+    Source/Graphics/vertexdata.cpp \
+    Source/Component/transform.cpp
 
 CONFIG += console
 CONFIG += c++11

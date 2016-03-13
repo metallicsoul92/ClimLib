@@ -89,9 +89,6 @@ namespace clim{
             return true;
         }
 
-       static vec2<T> toNonC(const vec2<T> obj){
-            return vec2<T>(obj);
-        }
 
         void setX(T x){ m_x = x;}
         void setY(T y){ m_y = y;}

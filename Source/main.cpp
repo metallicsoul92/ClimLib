@@ -46,6 +46,8 @@ int main(int argc, char *argv[])
         engine.getConsole()->printToConsole(test[i].c_str());
     }
 
+
+
     //test.play();
     system::keyboard keyboard(&engine);
     system::mouse mouse(&engine);

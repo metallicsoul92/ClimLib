@@ -43,7 +43,7 @@ namespace clim{
 				Sets the id of the current component
 			*/
 
-			virtual void setID(int id);
+            void setID(int id);
 			
 			/*!
 				Returns component id
