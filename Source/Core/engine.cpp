@@ -17,7 +17,7 @@ namespace clim{
 
     }
 
-    Engine::Engine(QApplication *a,QString title,QString version, bool debug) : EngineTitle(title),
+    Engine::Engine(QApplication *a,QString title,QString version, bool debug) :QObject(), EngineTitle(title),
     EngineVersion(version),isDebugging(debug), application(a){
 
         this->screen = new graphics::Screen;

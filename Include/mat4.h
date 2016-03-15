@@ -4,6 +4,7 @@
 
 #include "MathFunctions.h"
 #include "vec3.h"
+#include <GL/gl.h>
 namespace clim{
 namespace math{
 
@@ -218,8 +219,8 @@ public:
 
 
     //float only functions
-    mat4<float> orthographic(float left, float right, float bottom, float top, float near, float far);
-    mat4<float> perspective(float fov, float aspectRatio, float near, float far);
+    mat4<float> orthographic(float left, float right, float bottom, float top, float onear, float ofar);
+    mat4<float> perspective(float fov, float aspectRatio, float pnear, float pfar);
 
     //Graphics Based Functions
     mat4<T> translation(vec3<T>& translation)
@@ -289,7 +290,7 @@ private:
 
 };
 
-
+  GLfloat *toFloat(mat4<float> &matrix);
 
 }
 }

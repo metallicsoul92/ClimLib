@@ -8,7 +8,7 @@
 
 //User Defined Headers
 #include "MathTypes.h"
-#include "shaderuniform.h"
+#include "shadervariable.h"
 //User Defines
 #define filePath ".csm"
 #define MaxSources 5
@@ -87,7 +87,8 @@ namespace graphics{
         QString m_filepath;
         QVector<QString> m_sources;
         QVector<QString> m_sourceFilePath;
-        QVector<ShaderUniform*> uniforms;
+        QVector<ShaderVariable *> m_uniforms;
+        QVector<ShaderVariable *> m_attributes;
         quint32 m_ShaderID;
 
         bool isInitialized;
@@ -113,13 +114,20 @@ namespace graphics{
 
         template<typename T>
         void setUniform(QString& name, T *data){
-            for(int i = 0; i< uniforms.size() ; i++){
-                if(uniforms[i]->getName().contains(name)){
-                   uniforms[i]->setValue(data);
+            for(int i = 0; i< m_uniforms.size() ; i++){
+                if(m_uniforms[i]->getName().contains(name)){
+                   m_uniforms[i]->setValue(data);
                 }
             }
         }
-
+        template<typename T>
+        void setAttribute(QString& name, T *data){
+            for(int i = 0; i< m_attributes.size() ; i++){
+                if(m_attributes[i]->getName().contains(name)){
+                   m_attributes[i]->setValue(data);
+                }
+            }
+        }
         void bind();
         void unbind() const;
 
@@ -129,8 +137,10 @@ namespace graphics{
         static Shader* FromFile(const char* vertPath, const char* fragPath);
         static Shader* FromSource(const char* vertSrc, const char* fragSrc);
         static Shader* FromSource(const char* name, const char* vertSrc, const char* fragSrc);
-        QVector<ShaderUniform *> getUniforms();
-        void setUniforms();
+        QVector<ShaderVariable *> getUniforms();
+
+        QVector<ShaderVariable *> getAttributes() const;
+        void setAttributes(const QVector<ShaderVariable *> &attributes);
     };
 
 }

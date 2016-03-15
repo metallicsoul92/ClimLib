@@ -15,7 +15,6 @@ HEADERS += \
     Include/keyboard.h \
     Include/mouse.h \
     Include/shader.h \
-    Include/shaderuniform.h \
     Include/stringutils.h \
     Include/vec2.h \
     Include/vec3.h \
@@ -25,7 +24,8 @@ HEADERS += \
     Include/renderer2d.h \
     Include/renderable2d.h \
     Include/vertexdata.h \
-    Include/transform.h
+    Include/transform.h \
+    Include/shadervariable.h \
 
 SOURCES += \
     Source/Component/Component.cpp \
@@ -43,14 +43,22 @@ SOURCES += \
     Source/System/keyboard.cpp \
     Source/System/mouse.cpp \
     Source/Graphics/shader.cpp \
-    Source/Graphics/shaderuniform.cpp \
     Source/Graphics/vertexdata.cpp \
-    Source/Component/transform.cpp
+    Source/Component/transform.cpp \
+    Source/Graphics/shadervariable.cpp \
 
 CONFIG += console
 CONFIG += c++11
-QT += gui widgets
+QT += gui widgets opengl
 QT += multimedia
 
 FORMS += \
    Source/System/console.ui
+
+LIBS += -lglut
+unix|win32: LIBS += -L$$PWD/Dependencies/lua-5.3.2/builds/mingw/lib/ -llua
+
+INCLUDEPATH += $$PWD/Dependencies/lua-5.3.2/builds/mingw/include
+DEPENDPATH += $$PWD/Dependencies/lua-5.3.2/builds/mingw/include
+
+DISTFILES +=

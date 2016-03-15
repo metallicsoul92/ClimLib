@@ -20,6 +20,12 @@
 #define VERSION "0.0.2.0"
 #define ENGINETITLE "ClimLib"
 
+//Lua Testing
+#include "Dependencies/Lua-5.3.2/builds/mingw/include/lua.h"
+#include "Dependencies/Lua-5.3.2/builds/mingw/include/lauxlib.h"
+#include "Dependencies/Lua-5.3.2/builds/mingw/include/lualib.h"
+
+
 
 
 using namespace clim;
@@ -32,6 +38,12 @@ QString ApplicationTitle;
 int main(int argc, char *argv[])
 {
 
+    QSurfaceFormat format;
+    format.setRenderableType(QSurfaceFormat::OpenGL);
+    format.setProfile(QSurfaceFormat::CoreProfile);
+    format.setVersion(4,5);
+
+
     std::vector<std::string> test;
     std::string testing = "Hello world this is tokenization testing";
     test = stringUtils::tokenize(testing);
@@ -40,8 +52,9 @@ int main(int argc, char *argv[])
     Audio atest = Audio("Test","Test.wav");
 
     Engine engine(new QApplication(argc,argv),"ClimLib ","0.0.2.0",true);
+    engine.getScreen()->setFormat(format);
     engine.getConsole()->printToConsole("Inside main Function");
-
+    engine.getConsole()->printToConsole(engine.getScreen()->ContextInformation());
     for(unsigned int i= 0; i< test.size();i++){
         engine.getConsole()->printToConsole(test[i].c_str());
     }

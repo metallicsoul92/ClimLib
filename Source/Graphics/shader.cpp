@@ -10,11 +10,21 @@ namespace graphics{
 
 
 
-    QVector<ShaderUniform*> Shader::getUniforms()
+    QVector<ShaderVariable*> Shader::getUniforms()
     {
-        return uniforms;
+        return m_uniforms;
     }
 
+
+    QVector<ShaderVariable *> Shader::getAttributes() const
+    {
+        return m_attributes;
+    }
+
+    void Shader::setAttributes(const QVector<ShaderVariable *> &attributes)
+    {
+        m_attributes = attributes;
+    }
     quint32 Shader::load()
     {
         auto program = oglfunc.glCreateProgram();
@@ -128,13 +138,13 @@ namespace graphics{
                 oglfunc.glValidateProgram(program);
 
                 //set shader uniforms
-                GLint count;
-                oglfunc.glGetProgramInterfaceiv(program, GL_UNIFORM, GL_ACTIVE_RESOURCES, &count);
+                GLint ucount;
+                oglfunc.glGetProgramInterfaceiv(program, GL_UNIFORM, GL_ACTIVE_RESOURCES, &ucount);
 
-                for(int i = 0; i < count; i++){
-                 ShaderUniform *temp = new ShaderUniform();
+                for(int i = 0; i < ucount; i++){
+                 ShaderVariable *temp = new ShaderVariable();
                         GLsizei actualLength =0;
-                    GLchar *nameData;
+                    GLchar *nameData = nullptr;
                     GLint arraySize = 0;
                     GLenum type = 0;
                     std::string tempstr;
@@ -144,15 +154,15 @@ namespace graphics{
                     temp->setSize(actualLength);
                     temp->setLocation(oglfunc.glGetUniformLocation(program,nameData));
                     union{
-                        float *fvalue;
+                        float *afvalue;
                         int *ivalue;
                         double *dvalue;
                     };
                     switch(type){
                     case GL_FLOAT:
                         temp->setType(SUT_FLOAT);
-                        oglfunc.glGetUniformfv(program,temp->getLocation(),fvalue);
-                        temp->setValue<float>(*fvalue);
+                        oglfunc.glGetUniformfv(program,temp->getLocation(),afvalue);
+                        temp->setValue<float>(*afvalue);
                           break;
                     case GL_INT:
                         temp->setType(SUT_INT);
@@ -161,21 +171,21 @@ namespace graphics{
                           break;
                     case GL_FLOAT_VEC2:
                         temp->setType(SUT_VEC2);
-                        oglfunc.glGetUniformfv(program,temp->getLocation(),fvalue);
+                        oglfunc.glGetUniformfv(program,temp->getLocation(),afvalue);
                         //temp->setValue<math::vec2<float>>(math::vec2<float>(fvalue[0],fvalue[1]));
-                        temp->setValue<math::vec2<float>>(math::vec2<float>(fvalue[0],fvalue[1]));
+                        temp->setValue<math::vec2<float>>(math::vec2<float>(afvalue[0],afvalue[1]));
                           break;
                     case GL_FLOAT_VEC3:
                         temp->setType(SUT_VEC3);
-                        oglfunc.glGetUniformfv(program,temp->getLocation(),fvalue);
+                        oglfunc.glGetUniformfv(program,temp->getLocation(),afvalue);
                        // temp->setValue<math::vec3<float>>(math::vec3<float>(fvalue[0],fvalue[1],fvalue[2]));
-                        temp->setValue<math::vec3<float>>(math::vec3<float>(fvalue[0],fvalue[1],fvalue[2]));
+                        temp->setValue<math::vec3<float>>(math::vec3<float>(afvalue[0],afvalue[1],afvalue[2]));
                           break;
                     case GL_FLOAT_VEC4:
                         temp->setType(SUT_VEC4);
-                        oglfunc.glGetUniformfv(program,temp->getLocation(),fvalue);
+                        oglfunc.glGetUniformfv(program,temp->getLocation(),afvalue);
                         //temp->setValue<math::vec4<float>>(math::vec4<float>(fvalue[0],fvalue[1],fvalue[2],fvalue[3]));
-                        temp->setValue<math::vec4<float>>(math::vec4<float>(fvalue[0],fvalue[1],fvalue[2],fvalue[3]));
+                        temp->setValue<math::vec4<float>>(math::vec4<float>(afvalue[0],afvalue[1],afvalue[2],afvalue[3]));
                         break;
                     case GL_INT_VEC2:
                         temp->setType(SUT_IVEC2);
@@ -193,8 +203,79 @@ namespace graphics{
                         temp->setValue<math::vec4<int>>(math::vec4<int>(ivalue[0],ivalue[1],ivalue[2],ivalue[3]));
                         break;
                     }
-                uniforms.push_back(temp);
+                m_uniforms.push_back(temp);
+
                 }
+                //set shader attributes
+                GLint acount;
+                oglfunc.glGetProgramInterfaceiv(program,GL_PROGRAM_INPUT,GL_ACTIVE_ATTRIBUTES,&acount);
+
+                for(int j = 0 ; j < acount; j++){
+                    ShaderVariable *temp = new ShaderVariable();
+                           GLsizei actualLength =0;
+                       GLchar *nameData = nullptr;
+                       GLint arraySize;
+                       GLenum type = 0;
+                       std::string tempstr;
+                       int maxSize = tempstr.max_size();
+                       oglfunc.glGetActiveAttrib(program,j,maxSize,&actualLength, &arraySize, &type, nameData);
+                       temp->setName(nameData);
+                       temp->setSize(actualLength);
+                       temp->setLocation(oglfunc.glGetUniformLocation(program,nameData));
+                       union{
+                           float *afvalue;
+                           int *aivalue;
+                           double *dvalue;
+                       };
+
+                       //TODO: FIX THIS UP!
+                       switch(type){
+                       case GL_FLOAT:
+                           temp->setType(SUT_FLOAT);
+                           //oglfunc.glGetAttribiv(program,temp->getLocation(),afvalue);
+                           //temp->setValue<float>(*afvalue);
+                             break;
+                       case GL_INT:
+                           temp->setType(SUT_INT);
+                           oglfunc.glGetUniformiv(program,temp->getLocation(),aivalue);
+                           temp->setValue<int>(*aivalue);
+                             break;
+                       case GL_FLOAT_VEC2:
+                           temp->setType(SUT_VEC2);
+                           oglfunc.glGetUniformfv(program,temp->getLocation(),afvalue);
+                           //temp->setValue<math::vec2<float>>(math::vec2<float>(fvalue[0],fvalue[1]));
+                           temp->setValue<math::vec2<float>>(math::vec2<float>(afvalue[0],afvalue[1]));
+                             break;
+                       case GL_FLOAT_VEC3:
+                           temp->setType(SUT_VEC3);
+                           oglfunc.glGetUniformfv(program,temp->getLocation(),afvalue);
+                          // temp->setValue<math::vec3<float>>(math::vec3<float>(fvalue[0],fvalue[1],fvalue[2]));
+                           temp->setValue<math::vec3<float>>(math::vec3<float>(afvalue[0],afvalue[1],afvalue[2]));
+                             break;
+                       case GL_FLOAT_VEC4:
+                           temp->setType(SUT_VEC4);
+                           oglfunc.glGetUniformfv(program,temp->getLocation(),afvalue);
+                           //temp->setValue<math::vec4<float>>(math::vec4<float>(fvalue[0],fvalue[1],fvalue[2],fvalue[3]));
+                           temp->setValue<math::vec4<float>>(math::vec4<float>(afvalue[0],afvalue[1],afvalue[2],afvalue[3]));
+                           break;
+                       case GL_INT_VEC2:
+                           temp->setType(SUT_IVEC2);
+                           oglfunc.glGetUniformiv(program,temp->getLocation(),aivalue);
+                           temp->setValue<math::vec2<int>>(math::vec2<int>(aivalue[0],aivalue[1]));
+                             break;
+                       case GL_INT_VEC3:
+                           temp->setType(SUT_IVEC3);
+                           oglfunc.glGetUniformiv(program,temp->getLocation(),aivalue);
+                           temp->setValue<math::vec3<int>>(math::vec3<int>(aivalue[0],aivalue[1],aivalue[2]));
+                             break;
+                       case GL_INT_VEC4:
+                           temp->setType(SUT_IVEC4);
+                           oglfunc.glGetUniformiv(program,temp->getLocation(),aivalue);
+                           temp->setValue<math::vec4<int>>(math::vec4<int>(aivalue[0],aivalue[1],aivalue[2],aivalue[3]));
+                           break;
+                       }
+                   m_attributes.push_back(temp);
+                   }
 
 
                 oglfunc.glDeleteShader(vertex);
@@ -327,8 +408,8 @@ void Shader::unbind() const
 
 bool Shader::hasUniform(const QString &name) const
 {
-        for(int i = 0; i < uniforms.size();i++){
-            if (uniforms[i]->getName().contains(name)){
+        for(int i = 0; i < m_uniforms.size();i++){
+            if (m_uniforms[i]->getName().contains(name)){
                 return true;
             }
         }
