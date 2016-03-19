@@ -20,6 +20,7 @@ namespace clim
 			fileDate += ".txt";
             logger.writeToLog(fileDate, line);
 #endif
+            logger.writeToLog("General.txt",line);
 		}
 
 

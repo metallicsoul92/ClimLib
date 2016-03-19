@@ -22,29 +22,35 @@ namespace clim{
         public:
 
           static Engine *getInstance();
-          explicit Engine(Engine &e);
+          explicit Engine(const Engine &e);
            explicit Engine(QApplication *a,QString title,QString version, bool debug);
           ~Engine();
-            system::console *getConsole();
+            system::console *getConsole()const;
+            system::console *Console();
            void update();
         int exec();
 
 
 
-        QString getEngineTitle();
-        QString getEngineVersion();
-        QApplication *getApplication();
-        graphics::Screen *getScreen();
+        QString getEngineTitle()const;
+        QString getEngineVersion()const;
+        QApplication *getApplication()const;
+        graphics::Screen *getScreen()const;
+
+        QString& EngineTitle();
+        QString& EngineVersion();
+        QApplication* ApplicationPtr();
+        graphics::Screen* ScreenPtr();
 
         private:
 
             bool isRunning;
-            QString EngineTitle;
-            QString EngineVersion;
+            QString m_engineTitle;
+            QString m_engineVersion;
             bool isDebugging;
-            graphics::Screen *screen;
-            system::console *console;
-            QApplication *application;
+            graphics::Screen *m_screen;
+            system::console *m_console;
+            QApplication *m_application;
 
         };
     }

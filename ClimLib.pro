@@ -55,7 +55,6 @@ QT += multimedia
 FORMS += \
    Source/System/console.ui
 
-LIBS += -lglut
 unix|win32: LIBS += -L$$PWD/Dependencies/lua-5.3.2/builds/mingw/lib/ -llua
 
 INCLUDEPATH += $$PWD/Dependencies/lua-5.3.2/builds/mingw/include

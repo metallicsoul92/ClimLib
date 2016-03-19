@@ -2,13 +2,34 @@
 #include "../../Include/MathFunctions.h"
 #include "../../Include/MathTypes.h"
 #include "../../Include/mat4.h"
-
+#include "../../Include/Logger.h"
+#include "../../Include/Debugger.h"
 namespace clim{
 namespace graphics{
 
-Screen::Screen():
-QOpenGLWindow()
+Screen::Screen(): QOpenGLFunctions(),
+m_context(0),m_frames(0),m_time(0.0f),
+  m_shader(new QOpenGLShaderProgram),m_texture(0),
+  m_vbo(new QOpenGLBuffer(QOpenGLBuffer::VertexBuffer)),
+  m_ibo(new QOpenGLBuffer(QOpenGLBuffer::IndexBuffer))
 {
+
+    setSurfaceType(QSurface::OpenGLSurface);
+    initializeOpenGLFunctions();
+
+    m_context->makeCurrent(this);
+    QSurfaceFormat format;
+    format.setRenderableType(QSurfaceFormat::OpenGL);
+    format.setDepthBufferSize(24);
+    format.setStencilBufferSize(8);
+    format.setProfile(QSurfaceFormat::CoreProfile);
+    format.setVersion(4,5);
+    m_context->setFormat(format);
+
+
+       initializeGL();
+
+
     showNormal ();
     isOpen = true;
 }
@@ -22,8 +43,22 @@ void Screen::setupScreen(const QString title, int width, int height){
 
 Screen :: ~ Screen()
 {
-    makeCurrent();
+    m_context->doneCurrent();
     tearDownGL();
+}
+
+QOpenGLBuffer* Screen::createBuffer(QOpenGLBuffer::Type type,
+                                            QOpenGLBuffer::UsagePattern usagePattern,
+                                            void *data, int byteSize)
+{
+    QOpenGLBuffer* b = new QOpenGLBuffer(type);
+    b->setUsagePattern(usagePattern);
+    if (!b->create())
+        qFatal("Couldn't create buffer");
+    b->bind();
+    b->allocate(data, byteSize);
+    b->release();
+    return b;
 }
 
 // The following code is the role of OpenGL scene re-set size, and the size has changed regardless of whether the window (assuming you do not use full-screen mode).
@@ -41,8 +76,6 @@ void Screen::resizeGL(int w, int h)
 
 void Screen::initializeGL ()
 {
-    initializeOpenGLFunctions();
-
     glClearColor(0.0f,0.0f,0.0f,1.0f);
 }
 
@@ -56,43 +89,6 @@ void Screen::tearDownGL(){
 
 }
 
-QString Screen::ContextInformation()
-    {
-      QString glType;
-      QString glVersion;
-      QString glProfile;
-
-      // Get Version Information
-      //glType = (context()->isOpenGLES()) ? "OpenGL ES" : "OpenGL";
-      if(context()->isOpenGLES()){
-          glType= "OpenGL ES";
-      }else{
-          glType= "OpenGL";
-      }
-      glVersion = reinterpret_cast<const char*>(glGetString(GL_VERSION));
-
-      // Get Profile Information
-    #define CASE(c) case QSurfaceFormat::c: glProfile = #c; break
-      switch (format().profile())
-      {
-        CASE(NoProfile);
-        CASE(CoreProfile);
-        CASE(CompatibilityProfile);
-      }
-    #undef CASE
-
-      QString temp = "Type: ";
-      temp.append(glType);
-      temp.append("\nVersion: ");
-      temp.append(glVersion);
-      temp.append("\nProfile: ");
-      temp.append(glProfile);
-
-      return temp;
-      // qPrintable() will print our QString w/o quotes around it.
-      //qDebug() << qPrintable(glType) << qPrintable(glVersion) << "(" << qPrintable(glProfile) << ")";
-
-}
 
 void Screen::keyPressEvent (QKeyEvent * event)
 {
@@ -109,7 +105,6 @@ void Screen::keyPressEvent (QKeyEvent * event)
             {
                 showNormal ();
             }
-            update();
             break;
         }
         case Qt :: Key_Escape:
@@ -119,5 +114,11 @@ void Screen::keyPressEvent (QKeyEvent * event)
         }
     }
     }
+
+void Screen::timerEvent(QTimerEvent *)
+{
+    qDebug() << "FPS:" << m_frames;
+    m_frames = 0;
+}
     }
 }

@@ -5,7 +5,7 @@
 #include <Qt>
 #include <QKeyEvent>
 #include <QOpenGLFunctions>
-#include <QtGui/QOpenGLWindow>
+#include <QtGui/QWindow>
 
 #include "MathFunctions.h"
 #include "vec2.h"
@@ -13,7 +13,7 @@
 namespace clim{
     namespace graphics{
 
-    class Screen : public QOpenGLWindow ,
+    class Screen : public QWindow ,
                    protected QOpenGLFunctions
     {
         Q_OBJECT
@@ -23,18 +23,34 @@ namespace clim{
         ~Screen();
 
         void setupScreen(const QString title, int width, int height);
-        void resizeGL(int w, int h)Q_DECL_OVERRIDE;
-        void initializeGL()Q_DECL_OVERRIDE;
-        void paintGL() Q_DECL_OVERRIDE;
+        void resizeGL(int w, int h);
+        void initializeGL();
+        void paintGL();
         void keyPressEvent(QKeyEvent *event);
         void tearDownGL();
-        QString ContextInformation();
+
+        void timerEvent(QTimerEvent *);
+
+          QOpenGLBuffer* createBuffer(QOpenGLBuffer::Type type,
+                                      QOpenGLBuffer::UsagePattern,
+                                      void* data, int byteSize);
+
+
      bool isOpen;
     private:
-
+        QOpenGLContext *m_context;
         clim::math::vec2<int> Dimension;
         bool m_show_full_screen;
 
+        int m_frames;
+        float m_time;
+
+
+        QOpenGLShaderProgram* m_shader;
+           QOpenGLTexture* m_texture;
+           QOpenGLBuffer* m_vbo;
+           QOpenGLBuffer* m_ibo;
+           float m_textureAspect;
 
 
     };

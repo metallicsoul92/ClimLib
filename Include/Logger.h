@@ -15,7 +15,7 @@ namespace clim{
 		{
 		public:
 	
-			~Logger(){  };
+            ~Logger(){  }
 
             void cwriteToLog( console *c, const std::string filepath, const std::string data);
              void writeToLog(const std::string filepath, const std::string data);
