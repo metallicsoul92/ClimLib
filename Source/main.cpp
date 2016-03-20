@@ -8,7 +8,7 @@
 //User Defined
 #include "Include/stringutils.h"
 #include "Include/keyboard.h"
-#include "include/mouse.h"
+#include "Include/mouse.h"
 #include "Include/platform.h"
 #include "Include/screen.h"
 #include "Include/Debugger.h"
@@ -21,11 +21,21 @@
 #define ENGINETITLE "ClimLib"
 
 //Lua Testing
-#include "Dependencies/Lua-5.3.2/builds/mingw/include/lua.h"
-#include "Dependencies/Lua-5.3.2/builds/mingw/include/lauxlib.h"
-#include "Dependencies/Lua-5.3.2/builds/mingw/include/lualib.h"
+#ifdef __WIN64
+#include "Dependencies/lua-5.3.2/builds/mingw/include/lua.h"
+#include "Dependencies/lua-5.3.2/builds/mingw/include/lauxlib.h"
+#include "Dependencies/lua-5.3.2/builds/mingw/include/lualib.h"
+#endif
 
+#ifdef __WIN32
+#include "Dependencies/lua-5.3.2/builds/mingw/include/lua.h"
+#include "Dependencies/lua-5.3.2/builds/mingw/include/lauxlib.h"
+#include "Dependencies/lua-5.3.2/builds/mingw/include/lualib.h"
+#endif
 
+#include "Dependencies/lua-5.3.2/src/lua.h"
+#include "Dependencies/lua-5.3.2/src/lauxlib.h"
+#include "Dependencies/lua-5.3.2/src/lualib.h"
 
 
 using namespace clim;
@@ -41,6 +51,7 @@ int main(int argc, char *argv[])
 
 
 
+
     std::vector<std::string> test;
     std::string testing = "Hello world this is tokenization testing";
     test = stringUtils::tokenize(testing);
@@ -48,7 +59,7 @@ int main(int argc, char *argv[])
 
     Audio atest = Audio("Test","Test.wav");
 
-    Engine engine(new QApplication(argc,argv),"ClimLib ","0.0.2.0",true);
+    Engine engine("ClimLib ","0.0.2.0",true,argc,argv);
     engine.getConsole()->printToConsole("Inside main Function");
 
 

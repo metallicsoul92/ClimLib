@@ -5,19 +5,18 @@
 namespace clim{
     namespace core{
 
-    Engine::Engine(const Engine &e) : QObject()
+    Engine::Engine(const Engine &e,  int &argc, char** argv):QApplication(argc,argv)
     {
         m_engineTitle = e.getEngineTitle();
         m_engineVersion = e.getEngineVersion();
         m_screen = e.getScreen();
-        m_application = e.getApplication();
         m_console = e.getConsole();
 
 
     }
 
-    Engine::Engine(QApplication *a,QString title,QString version, bool debug) :QObject(), m_engineTitle(title),
-    m_engineVersion(version),isDebugging(debug), m_application(a){
+    Engine::Engine(QString title,QString version, bool debug, int &argc, char** argv) :QApplication(argc, argv), m_engineTitle(title),
+    m_engineVersion(version),isDebugging(debug){
 
         this->m_screen = new graphics::Screen;
         this->m_console = new system::console;
@@ -38,13 +37,12 @@ namespace clim{
         isRunning= true;
 
 
-        connect(m_screen,SIGNAL(destroyed()),m_application,SLOT(quit()));
+
         connect(m_screen,SIGNAL(destroyed()),m_console,SLOT(close()));
     }
 
     Engine::~Engine()
     {
-        m_application->exit();
         m_screen->destroy();
         delete this;
     }
@@ -56,15 +54,10 @@ namespace clim{
         return m_console;
     }
 
-    int Engine::exec(){
-        return m_application->exec();
-    }
 
     QString Engine::getEngineTitle()const{return m_engineTitle;}
 
     QString Engine::getEngineVersion()const{return m_engineVersion;}
-
-    QApplication *Engine::getApplication()const{return m_application;}
 
     graphics::Screen *Engine::getScreen()const{return m_screen;}
 
@@ -74,8 +67,6 @@ namespace clim{
     }
 
     QString& Engine::EngineVersion(){return m_engineVersion;}
-
-    QApplication* Engine::ApplicationPtr(){return m_application;}
 
     graphics::Screen *Engine::ScreenPtr(){return m_screen;}
 

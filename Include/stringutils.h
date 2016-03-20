@@ -18,8 +18,9 @@ namespace clim{
     public:
    static std::vector<std::string> tokenize(std::string & src){
        std::vector<std::string> temp;
-       char * copy = strdup(src.c_str());
-       char * pch = strtok(copy, " ");
+       auto copy = src.c_str();
+       char * unconst = (char*)copy;
+       char * pch = strtok(unconst, " ");
        while(pch != NULL){
            temp.push_back(pch);
            pch = strtok (NULL, " ");

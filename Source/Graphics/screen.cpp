@@ -7,17 +7,15 @@
 namespace clim{
 namespace graphics{
 
-Screen::Screen(): QOpenGLFunctions(),
-m_context(0),m_frames(0),m_time(0.0f),
-  m_shader(new QOpenGLShaderProgram),m_texture(0),
-  m_vbo(new QOpenGLBuffer(QOpenGLBuffer::VertexBuffer)),
-  m_ibo(new QOpenGLBuffer(QOpenGLBuffer::IndexBuffer))
+Screen::Screen(): QOpenGLFunctions(m_context),
+m_frames(0),m_time(0.0f)
 {
-
+    m_context = new QOpenGLContext();
+    m_shader = new QOpenGLShaderProgram();
+      m_vbo = new QOpenGLBuffer(QOpenGLBuffer::VertexBuffer);
+    m_ibo = new QOpenGLBuffer(QOpenGLBuffer::IndexBuffer);
     setSurfaceType(QSurface::OpenGLSurface);
-    initializeOpenGLFunctions();
 
-    m_context->makeCurrent(this);
     QSurfaceFormat format;
     format.setRenderableType(QSurfaceFormat::OpenGL);
     format.setDepthBufferSize(24);
@@ -26,12 +24,13 @@ m_context(0),m_frames(0),m_time(0.0f),
     format.setVersion(4,5);
     m_context->setFormat(format);
 
+  m_context->create();
 
-       initializeGL();
-
-
-    showNormal ();
     isOpen = true;
+    create();
+  initializeGL();
+    showNormal ();
+
 }
 void Screen::setupScreen(const QString title, int width, int height){
 
@@ -76,6 +75,8 @@ void Screen::resizeGL(int w, int h)
 
 void Screen::initializeGL ()
 {
+    this->initializeOpenGLFunctions();
+    m_context->makeCurrent(this);
     glClearColor(0.0f,0.0f,0.0f,1.0f);
 }
 

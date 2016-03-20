@@ -1,7 +1,7 @@
 #ifndef MATHTYPES
 #define MATHTYPES
 
-#include "Mat4.h"
+#include "mat4.h"
 //Mat4 holds an include to vec3
 #include "vec4.h"
 #include "vec2.h"

@@ -16,30 +16,27 @@ namespace clim{
 
 
 
-        class Engine: public QObject{
-        Q_OBJECT;
+        class Engine: public QApplication{
+        Q_OBJECT
 
         public:
 
           static Engine *getInstance();
-          explicit Engine(const Engine &e);
-           explicit Engine(QApplication *a,QString title,QString version, bool debug);
+          explicit Engine(const Engine &e, int &argc, char **argv);
+           explicit Engine(QString title, QString version, bool debug,  int &argc, char** argv);
           ~Engine();
             system::console *getConsole()const;
             system::console *Console();
            void update();
-        int exec();
 
 
 
         QString getEngineTitle()const;
         QString getEngineVersion()const;
-        QApplication *getApplication()const;
         graphics::Screen *getScreen()const;
 
         QString& EngineTitle();
         QString& EngineVersion();
-        QApplication* ApplicationPtr();
         graphics::Screen* ScreenPtr();
 
         private:
@@ -50,7 +47,6 @@ namespace clim{
             bool isDebugging;
             graphics::Screen *m_screen;
             system::console *m_console;
-            QApplication *m_application;
 
         };
     }
