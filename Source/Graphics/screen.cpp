@@ -30,13 +30,13 @@ m_frames(0),m_time(0.0f)
     m_context->setFormat(format);
     m_context->create();
     m_context->makeCurrent(this);
-    QOpenGLFunctions *func = m_context->functions();
+    m_context->functions()->initializeOpenGLFunctions();
 
-    if(!func){
+    if(!m_context->functions()){
         qWarning("Cannot obtain OpenGL versions");
         exit(1);
     }
-    func->initializeOpenGLFunctions();
+
 
     isOpen = true;
 
@@ -87,19 +87,356 @@ void Screen::resizeGL(int w, int h)
 
 void Screen::initializeGL ()
 {
-    this->initializeOpenGLFunctions();
-    m_context->makeCurrent(this);
-    glClearColor(0.0f,0.0f,0.0f,1.0f);
+    m_context->functions()->glClearColor(0.0f,0.0f,0.0f,1.0f);
 }
 
 
 void Screen::paintGL ()
 {
-   glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear screen and depth buffer
+   m_context->functions()->glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear screen and depth buffer
 }
 
 void Screen::tearDownGL(){
 
+}
+
+bool Screen::event(QEvent *event)
+{
+    switch(event->type()){
+    case QEvent::None:
+        break;
+    case QEvent::Timer:
+        break;
+    case QEvent::MouseButtonPress:
+        break;
+    case QEvent::MouseButtonRelease:
+        break;
+    case QEvent::MouseButtonDblClick:
+        break;
+    case QEvent::MouseMove:
+        break;
+    case QEvent::KeyPress:
+        break;
+    case QEvent::KeyRelease:
+        break;
+    case QEvent::FocusIn:
+        break;
+    case QEvent::FocusOut:
+        break;
+    case QEvent::FocusAboutToChange:
+        break;
+    case QEvent::Enter:
+        break;
+    case QEvent::Leave:
+        break;
+    case QEvent::Paint:
+        break;
+    case QEvent::Move:
+        break;
+    case QEvent::Resize:
+        break;
+    case QEvent::Create:
+        break;
+    case QEvent::Destroy:
+        break;
+    case QEvent::Show:
+        break;
+    case QEvent::Hide:
+        break;
+    case QEvent::Quit:
+        break;
+    case QEvent::ParentChange:
+        break;
+    case QEvent::ParentAboutToChange:
+        break;
+    case QEvent::ThreadChange:
+        break;
+    case QEvent::WindowActivate:
+        break;
+    case QEvent::WindowDeactivate:
+        break;
+    case QEvent::ShowToParent:
+        break;
+    case QEvent::HideToParent:
+        break;
+    case QEvent::Wheel:
+        break;
+    case QEvent::WindowTitleChange:
+        break;
+    case QEvent::WindowIconChange:
+        break;
+    case QEvent::ApplicationWindowIconChange:
+        break;
+    case QEvent::ApplicationFontChange:
+        break;
+    case QEvent::ApplicationLayoutDirectionChange:
+        break;
+    case QEvent::ApplicationPaletteChange:
+        break;
+    case QEvent::PaletteChange:
+        break;
+    case QEvent::Clipboard:
+        break;
+    case QEvent::Speech:
+        break;
+    case QEvent::MetaCall:
+        break;
+    case QEvent::SockAct:
+        break;
+    case QEvent::WinEventAct:
+        break;
+    case QEvent::DeferredDelete:
+        break;
+    case QEvent::DragEnter:
+        break;
+    case QEvent::DragMove:
+        break;
+    case QEvent::DragLeave:
+        break;
+    case QEvent::Drop:
+        break;
+    case QEvent::DragResponse:
+        break;
+    case QEvent::ChildAdded:
+        break;
+    case QEvent::ChildPolished:
+        break;
+    case QEvent::ChildRemoved:
+        break;
+    case QEvent::ShowWindowRequest:
+        break;
+    case QEvent::PolishRequest:
+        break;
+    case QEvent::Polish:
+        break;
+    case QEvent::LayoutRequest:
+        break;
+    case QEvent::UpdateRequest:
+        break;
+    case QEvent::UpdateLater:
+        break;
+    case QEvent::EmbeddingControl:
+        break;
+    case QEvent::ActivateControl:
+        break;
+    case QEvent::DeactivateControl:
+        break;
+    case QEvent::ContextMenu:
+        break;
+    case QEvent::InputMethod:
+        break;
+    case QEvent::TabletMove:
+        break;
+    case QEvent::LocaleChange:
+        break;
+    case QEvent::LanguageChange:
+        break;
+    case QEvent::LayoutDirectionChange:
+        break;
+    case QEvent::Style:
+        break;
+    case QEvent::TabletPress:
+        break;
+    case QEvent::TabletRelease:
+        break;
+    case QEvent::OkRequest:
+        break;
+    case QEvent::HelpRequest:
+        break;
+    case QEvent::IconDrag:
+        break;
+    case QEvent::FontChange:
+        break;
+    case QEvent::EnabledChange:
+        break;
+    case QEvent::ActivationChange:
+        break;
+    case QEvent::StyleChange:
+        break;
+    case QEvent::IconTextChange:
+        break;
+    case QEvent::ModifiedChange:
+        break;
+    case QEvent::MouseTrackingChange:
+        break;
+    case QEvent::WindowBlocked:
+        break;
+    case QEvent::WindowUnblocked:
+        break;
+    case QEvent::WindowStateChange:
+        break;
+    case QEvent::ReadOnlyChange:
+        break;
+    case QEvent::ToolTip:
+        break;
+    case QEvent::WhatsThis:
+        break;
+    case QEvent::StatusTip:
+        break;
+    case QEvent::ActionChanged:
+        break;
+    case QEvent::ActionAdded:
+        break;
+    case QEvent::ActionRemoved:
+        break;
+    case QEvent::FileOpen:
+        break;
+    case QEvent::Shortcut:
+        break;
+    case QEvent::ShortcutOverride:
+        break;
+    case QEvent::WhatsThisClicked:
+        break;
+    case QEvent::ToolBarChange:
+        break;
+    case QEvent::QueryWhatsThis:
+        break;
+    case QEvent::EnterWhatsThisMode:
+        break;
+    case QEvent::LeaveWhatsThisMode:
+        break;
+    case QEvent::ZOrderChange:
+        break;
+    case QEvent::HoverEnter:
+        break;
+    case QEvent::HoverLeave:
+        break;
+    case QEvent::HoverMove:
+        break;
+    case QEvent::AcceptDropsChange:
+        break;
+    case QEvent::ZeroTimerEvent:
+        break;
+    case QEvent::GraphicsSceneMouseMove:
+        break;
+    case QEvent::GraphicsSceneMousePress:
+        break;
+    case QEvent::GraphicsSceneMouseRelease:
+        break;
+    case QEvent::GraphicsSceneMouseDoubleClick:
+        break;
+    case QEvent::GraphicsSceneContextMenu:
+        break;
+    case QEvent::GraphicsSceneHoverEnter:
+        break;
+    case QEvent::GraphicsSceneHoverMove:
+        break;
+    case QEvent::GraphicsSceneHoverLeave:
+        break;
+    case QEvent::GraphicsSceneHelp:
+        break;
+    case QEvent::GraphicsSceneDragEnter:
+        break;
+    case QEvent::GraphicsSceneDragMove:
+        break;
+    case QEvent::GraphicsSceneDragLeave:
+        break;
+    case QEvent::GraphicsSceneDrop:
+        break;
+    case QEvent::GraphicsSceneWheel:
+        break;
+    case QEvent::KeyboardLayoutChange:
+        break;
+    case QEvent::DynamicPropertyChange:
+        break;
+    case QEvent::TabletEnterProximity:
+        break;
+    case QEvent::TabletLeaveProximity:
+        break;
+    case QEvent::NonClientAreaMouseMove:
+        break;
+    case QEvent::NonClientAreaMouseButtonPress:
+        break;
+    case QEvent::NonClientAreaMouseButtonRelease:
+        break;
+    case QEvent::NonClientAreaMouseButtonDblClick:
+        break;
+    case QEvent::MacSizeChange:
+        break;
+    case QEvent::ContentsRectChange:
+        break;
+    case QEvent::MacGLWindowChange:
+        break;
+    case QEvent::FutureCallOut:
+        break;
+    case QEvent::GraphicsSceneResize:
+        break;
+    case QEvent::GraphicsSceneMove:
+        break;
+    case QEvent::CursorChange:
+        break;
+    case QEvent::ToolTipChange:
+        break;
+    case QEvent::NetworkReplyUpdated:
+        break;
+    case QEvent::GrabMouse:
+        break;
+    case QEvent::UngrabMouse:
+        break;
+    case QEvent::GrabKeyboard:
+        break;
+    case QEvent::UngrabKeyboard:
+        break;
+    case QEvent::MacGLClearDrawable:
+        break;
+    case QEvent::StateMachineSignal:
+        break;
+    case QEvent::StateMachineWrapped:
+        break;
+    case QEvent::TouchBegin:
+        break;
+    case QEvent::TouchUpdate:
+        break;
+    case QEvent::TouchEnd:
+        break;
+    case QEvent::NativeGesture:
+        break;
+    case QEvent::RequestSoftwareInputPanel:
+        break;
+    case QEvent::CloseSoftwareInputPanel:
+        break;
+    case QEvent::WinIdChange:
+        break;
+    case QEvent::Gesture:
+        break;
+    case QEvent::GestureOverride:
+        break;
+    case QEvent::ScrollPrepare:
+        break;
+    case QEvent::Scroll:
+        break;
+    case QEvent::Expose:
+        break;
+    case QEvent::InputMethodQuery:
+        break;
+    case QEvent::OrientationChange:
+        break;
+    case QEvent::TouchCancel:
+        break;
+    case QEvent::ThemeChange:
+        break;
+    case QEvent::SockClose:
+        break;
+    case QEvent::PlatformPanel:
+        break;
+    case QEvent::StyleAnimationUpdate:
+        break;
+    case QEvent::ApplicationStateChange:
+        break;
+    case QEvent::WindowChangeInternal:
+        break;
+    case QEvent::ScreenChangeInternal:
+        break;
+    case QEvent::User:
+        break;
+    case QEvent::MaxUser:
+        break;
+    case QEvent::Close :
+        isOpen = false;
+        this->close();
+        return true;
+    }
+    return false;
 }
 
 

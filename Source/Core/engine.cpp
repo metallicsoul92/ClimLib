@@ -76,6 +76,7 @@ namespace clim{
 
             if(!m_screen->isOpen){
                 isRunning = false;
+                exit(0);
             }
 
            // Grab Logic information

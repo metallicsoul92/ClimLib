@@ -28,7 +28,7 @@ namespace clim{
         void paintGL();
         void keyPressEvent(QKeyEvent *event);
         void tearDownGL();
-
+        bool event(QEvent *event);
         void timerEvent(QTimerEvent *);
 
           QOpenGLBuffer* createBuffer(QOpenGLBuffer::Type type,
