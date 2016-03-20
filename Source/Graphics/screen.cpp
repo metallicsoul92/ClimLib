@@ -7,7 +7,7 @@
 namespace clim{
 namespace graphics{
 
-Screen::Screen(): QOpenGLFunctions(m_context),
+Screen::Screen():
 m_frames(0),m_time(0.0f)
 {
     m_context = new QOpenGLContext();
@@ -16,18 +16,30 @@ m_frames(0),m_time(0.0f)
     m_ibo = new QOpenGLBuffer(QOpenGLBuffer::IndexBuffer);
     setSurfaceType(QSurface::OpenGLSurface);
 
+    //Create Format
     QSurfaceFormat format;
     format.setRenderableType(QSurfaceFormat::OpenGL);
     format.setDepthBufferSize(24);
     format.setStencilBufferSize(8);
     format.setProfile(QSurfaceFormat::CoreProfile);
     format.setVersion(4,5);
-    m_context->setFormat(format);
+    setFormat(format);
+    create();
 
-  m_context->create();
+    //create context
+    m_context->setFormat(format);
+    m_context->create();
+    m_context->makeCurrent(this);
+    QOpenGLFunctions *func = m_context->functions();
+
+    if(!func){
+        qWarning("Cannot obtain OpenGL versions");
+        exit(1);
+    }
+    func->initializeOpenGLFunctions();
 
     isOpen = true;
-    create();
+
   initializeGL();
     showNormal ();
 
