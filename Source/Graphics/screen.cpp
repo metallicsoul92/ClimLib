@@ -23,12 +23,13 @@ m_frames(0),m_time(0.0f)
     format.setStencilBufferSize(8);
     format.setProfile(QSurfaceFormat::CoreProfile);
     format.setVersion(4,5);
-    setFormat(format);
-    create();
 
+    create();
+    setFormat(format);
     //create context
-    m_context->setFormat(format);
+
     m_context->create();
+    m_context->setFormat(format);
     m_context->makeCurrent(this);
     m_context->functions()->initializeOpenGLFunctions();
 
@@ -36,7 +37,11 @@ m_frames(0),m_time(0.0f)
         qWarning("Cannot obtain OpenGL versions");
         exit(1);
     }
+    m_oglfversion.setX(m_context->format().version().first);
+    m_oglfversion.setY(m_context->format().version().second);
 
+    Q_ASSERT(m_context->format().version().first == m_oglfversion.X());
+    Q_ASSERT(m_context->format().version().second == m_oglfversion.Y());
 
     isOpen = true;
 
@@ -72,6 +77,21 @@ QOpenGLBuffer* Screen::createBuffer(QOpenGLBuffer::Type type,
     return b;
 }
 
+math::vec2<int> &Screen::oglfversion()
+{
+    return m_oglfversion;
+}
+
+math::vec2<int> Screen::getOGLFversion() const
+{
+    return m_oglfversion;
+}
+
+void Screen::setOglfversion(const math::vec2<int> &oglfversion)
+{
+    m_oglfversion = oglfversion;
+}
+
 // The following code is the role of OpenGL scene re-set size, and the size has changed regardless of whether the window (assuming you do not use full-screen mode).
 // Even when you can not resize the window (for example, you are in full-screen mode), it will run at least once - to set up our perspective at the beginning of the program.
 // OpenGL scene size will be set to the size of the window where it is displayed.
@@ -93,7 +113,7 @@ void Screen::initializeGL ()
 
 void Screen::paintGL ()
 {
-   m_context->functions()->glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear screen and depth buffer
+   m_context->functions()->glClear(GL_DEPTH_BUFFER_BIT); // clear screen and depth buffer
 }
 
 void Screen::tearDownGL(){

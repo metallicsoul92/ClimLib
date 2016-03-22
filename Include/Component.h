@@ -14,10 +14,12 @@ namespace clim{
 		*/
 		class Component 
 		{
+
+        private:
 			int m_id;
 			std::string m_name;
-			Entity *parent;
-			bool active;
+            Entity *m_parent;
+            bool m_active;
 
 
 		public:
@@ -30,7 +32,7 @@ namespace clim{
 
 			bool isEnabled()
 			{
-				return active;
+                return m_active;
 			}
 
 			/*!
@@ -67,7 +69,7 @@ namespace clim{
 				Sets the parent of the component
 			*/
 			
-			void SetParent(Entity parent);
+            void SetParent(Entity &parent);
 			
 			/*!
 				Returns a pointer to the parent of the object
@@ -104,25 +106,25 @@ namespace clim{
 				Finds the count of the parent, sets the id to that, attaches the component to the parent, and sets the name to "Default"
 			*/
 			
-			Component(Entity *parent);
+            Component(Entity *parent);
 			
 			/*!
 				Finds the count of the parent, sets the id to that, attaches the component to the parent, and sets the name
 			*/
 			
-			Component(std::string name, Entity *parent);
+            Component(std::string name, Entity *parent);
 			
 			/*!
 				Sets the id and attaches the component to a parent.
 			*/
 			
-			Component(int id, Entity *parent);
+            Component(int id, Entity *parent);
 			
 			/*!
 				Sets the name, id, and attaches the component to the parent.
 			*/
 			
-			Component(int id, std::string name, Entity *parent);
+            Component(int id, std::string name, Entity *parent);
 
 			
 			/*!

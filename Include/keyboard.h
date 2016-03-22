@@ -33,7 +33,7 @@ using namespace core;
 
     protected:
         bool m_key[MAX_KEYBOARD_KEYS];
-        Engine *engine;
+        Engine *m_engine;
     };
 
     }

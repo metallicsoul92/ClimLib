@@ -9,7 +9,7 @@
 //User Created
 #include "screen.h"
 #include "console.h"
-
+#include "Debugger.h"
 
 namespace clim{
     namespace core{
@@ -42,9 +42,12 @@ namespace clim{
         private:
 
             bool isRunning;
-            QString m_engineTitle;
+
+            system::Debugger debug;
+            QString *m_debugString;
+           QString m_engineTitle;
             QString m_engineVersion;
-            bool isDebugging;
+             bool isDebugging;
             graphics::Screen *m_screen;
             system::console *m_console;
 

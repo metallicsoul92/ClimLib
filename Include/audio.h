@@ -27,9 +27,17 @@ namespace clim{
 
     public:
         Audio(QString name,QString path);
+        Audio(const Audio& copy);
 
          void play();
          void stop();
+
+         QString getName()const;
+         QString& Name();
+
+         QString getPath()const;
+         QString& Path();
+
 
     private:
 

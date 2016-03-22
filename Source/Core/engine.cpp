@@ -33,11 +33,13 @@ namespace clim{
         plat.append(QString(system::platformToString(system::detectPlatform()).c_str()));
         m_console->printToConsole("Initialization of ClimLib v 0.0.2.0");
         m_console->printToConsole(plat);
+        m_console->printToConsole("GL Version: (X:Major Y:Minor)");
+        m_console->printToConsole(m_screen->oglfversion().ToString().c_str());
         m_screen->show();
         isRunning= true;
 
-
-
+        m_debugString = new QString();
+        debug= system::Debugger(m_console,Debug(m_debugString));
         connect(m_screen,SIGNAL(destroyed()),m_console,SLOT(close()));
     }
 

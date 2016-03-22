@@ -22,7 +22,6 @@ public:
     explicit console(QWidget *parent = 0);
     ~console();
     void printToConsole(QString data);
-   static void sprintToConsole(QString data);
     Ui::console *getConsole(){return ui;}
 
     template<typename t>

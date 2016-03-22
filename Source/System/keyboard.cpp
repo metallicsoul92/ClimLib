@@ -5,12 +5,12 @@
 namespace clim{
     namespace system{
 
-    keyboard::keyboard(Engine *engine) : engine(engine)
+    keyboard::keyboard(Engine *engine) : m_engine(engine)
     {
         for(int i = 0; i < MAX_KEYBOARD_KEYS;i++){
             m_key[i] = false;
         }
-        engine->getScreen()->installEventFilter(this);
+        m_engine->getScreen()->installEventFilter(this);
     }
 
     bool keyboard::event(QEvent *event)
@@ -28,14 +28,14 @@ namespace clim{
                m_key[k->nativeVirtualKey()] = true;
                QString data = "Key Press: ";
                data.append(k->text());
-              this->engine->getConsole()->printToConsole(data);
+              this->m_engine->getConsole()->printToConsole(data);
                return true;                        // eat event
            }
            else if( event->type() == QEvent::KeyRelease){
                QKeyEvent *k = (QKeyEvent*)event;
                m_key[k->nativeVirtualKey()] = false;
                QString data = "Key release ";
-               this->engine->getConsole()->printToConsole(data);
+               this->m_engine->getConsole()->printToConsole(data);
             return true;
            }
            return QObject::eventFilter( object, event );    // standard event processing

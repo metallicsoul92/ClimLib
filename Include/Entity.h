@@ -44,7 +44,7 @@ namespace clim
 			int m_id;
 			std::string m_Name;
 			component_List listOfComponents;
-//			ComponentMessageHandler message;
+
 			entity_List m_children;
 			Entity* m_parent;
 			/*when you have the ability via boost, add a serialization file or object to send to a file*/

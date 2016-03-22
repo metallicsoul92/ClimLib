@@ -26,6 +26,7 @@ HEADERS += \
     Include/vertexdata.h \
     Include/transform.h \
     Include/shadervariable.h \
+    Include/serializable.h
 
 SOURCES += \
     Source/Component/Component.cpp \
@@ -46,6 +47,7 @@ SOURCES += \
     Source/Graphics/vertexdata.cpp \
     Source/Component/transform.cpp \
     Source/Graphics/shadervariable.cpp \
+    Source/System/serializable.cpp
 
 CONFIG += console
 CONFIG += c++11

@@ -1,6 +1,7 @@
 #ifndef VEC2
 #define VEC2
 
+#include <string>
 
 namespace clim{
     namespace math{
@@ -52,12 +53,18 @@ namespace clim{
             return *this;
         }
 
-        const char* toCString(){
-            char* temp;
-            temp = "X: " + m_x + "\n";
-            temp += "Y: " +m_y + "\n";
-            return temp;
-        }
+
+    std::string ToString(){
+
+        std::string temp;
+        temp += "X: ";
+        temp += std::to_string(m_x);
+        temp +="\nY: ";
+        temp += std::to_string(m_y);
+        temp +="\n";
+        return temp;
+
+    }
 
         friend vec2<T> operator+(vec2<T> left, vec2<T> right){
             return left.add(right);

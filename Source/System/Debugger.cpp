@@ -7,10 +7,15 @@ namespace clim
 {
 	namespace system
 	{
-		
-		void Debugger::printToScreen(std::string line)
+
+    Debugger::Debugger(system::console &c,QDebug &obj)
+    {
+        console = c;
+        debug = obj;
+    }
+
+    void Debugger::printToScreen(std::string line)
 		{
-#ifdef QT_DEBUG
 			time_t t = time(nullptr);
 			tm *timen = localtime(&t);
 			std::string fileDate;
@@ -19,9 +24,20 @@ namespace clim
 			fileDate += std::to_string(timen->tm_mday);
 			fileDate += ".txt";
             logger.writeToLog(fileDate, line);
-#endif
             logger.writeToLog("General.txt",line);
-		}
+    }
+
+    void Debugger::redirectToConsole(QString data)
+    {
+        debug << data;
+        console.printToConsole(data);
+    }
+
+    QDebug Debugger::operator<<(QString data)
+    {
+        redirectToConsole(data);
+    }
+
 
 
 	}
