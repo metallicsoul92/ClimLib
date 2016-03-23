@@ -4,6 +4,7 @@
 
 #include "MathFunctions.h"
 #include "vec3.h"
+#include "vec4.h"
 #include <GL/gl.h>
 namespace clim{
 namespace math{
@@ -59,6 +60,27 @@ public:
         }
         return *this;
     }
+    mat4<T>& mul(vec4<T> &other){
+    //TODO: Figure out how to do this easier
+        this->m_elements[0] *= other.X();
+        this->m_elements[1] *= other.Y();
+        this->m_elements[2] *= other.Z();
+        this->m_elements[3] *= other.W();
+        this->m_elements[4] *= other.X();
+        this->m_elements[5] *= other.Y();
+        this->m_elements[6] *= other.Z();
+        this->m_elements[7] *= other.W();
+        this->m_elements[8] *= other.X();
+        this->m_elements[9] *= other.Y();
+        this->m_elements[10] *= other.Z();
+        this->m_elements[11] *= other.W();
+        this->m_elements[12] *= other.X();
+        this->m_elements[13] *= other.Y();
+        this->m_elements[14] *= other.Z();
+        this->m_elements[15] *= other.W();
+    }
+
+
     mat4<T>& div(mat4<T> &other){
         for(int x = 0; x < 16; x++){
             this->m_elements[x] /= other.getElement(x);
