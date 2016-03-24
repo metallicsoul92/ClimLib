@@ -15,7 +15,7 @@ namespace clim{
 		class Component 
 		{
 
-        private:
+        protected:
 			int m_id;
 			std::string m_name;
             Entity *m_parent;
