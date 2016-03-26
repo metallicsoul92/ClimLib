@@ -14,6 +14,12 @@ console::console(QWidget *parent) :
 
 }
 
+console::console(console &&con) : ui(std::move(con.Console()))
+{
+
+}
+
+
 console::~console()
 {
     delete ui;
@@ -27,18 +33,11 @@ console::~console()
 
 
 
+
+
 void console::recieveInput(QString data){
     this->printToConsole(data);
 }
-
-
-
-
-
-
-}
-
-
 
 }
 }

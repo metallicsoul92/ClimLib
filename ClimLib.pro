@@ -27,7 +27,9 @@ HEADERS += \
     Include/transform.h \
     Include/shadervariable.h \
     Include/serializable.h \
-    Include/sprite.h
+    Include/sprite.h \
+    Include/camera2d.h \
+    Include/singleton.h
 
 SOURCES += \
     Source/Component/Component.cpp \
@@ -49,10 +51,11 @@ SOURCES += \
     Source/Component/transform.cpp \
     Source/Graphics/shadervariable.cpp \
     Source/System/serializable.cpp \
-    Source/Graphics/sprite.cpp
+    Source/Graphics/sprite.cpp \
+    Source/Component/camera2d.cpp
 
 CONFIG += console
-CONFIG += c++11
+CONFIG += c++14
 QT += gui widgets opengl
 QT += multimedia
 
@@ -62,6 +65,7 @@ FORMS += \
 unix|win32: LIBS += -L$$PWD/Dependencies/lua-5.3.2/builds/mingw/lib/ -llua
 
 INCLUDEPATH += $$PWD/Dependencies/lua-5.3.2/builds/mingw/include
+INCLUDEPATH += $$PWD/Dependencies/glm/glm
 DEPENDPATH += $$PWD/Dependencies/lua-5.3.2/builds/mingw/include
 
 DISTFILES +=

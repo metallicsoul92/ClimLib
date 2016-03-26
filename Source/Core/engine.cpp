@@ -11,6 +11,7 @@ namespace clim{
         m_engineVersion = e.getEngineVersion();
         m_screen = e.getScreen();
         m_console = e.getConsole();
+        m_debug = e.getDebug();
 
 
     }
@@ -38,8 +39,8 @@ namespace clim{
         m_screen->show();
         isRunning= true;
 
-        m_debugString = new QString();
-        debug= system::Debugger(m_console,Debug(m_debugString));
+
+        m_debug=  new system::Debugger(Console());
         connect(m_screen,SIGNAL(destroyed()),m_console,SLOT(close()));
     }
 
@@ -71,6 +72,16 @@ namespace clim{
     QString& Engine::EngineVersion(){return m_engineVersion;}
 
     graphics::Screen *Engine::ScreenPtr(){return m_screen;}
+
+    system::Debugger *Engine::getDebug() const
+    {
+        return m_debug;
+    }
+
+    system::Debugger *Engine::debugger()
+    {
+        return m_debug;
+    }
 
 
     void Engine::update(){

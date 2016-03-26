@@ -54,13 +54,13 @@ public:
         }
         return *this;
     }
-    mat4<T>& mul(mat4<T> &other){
+    mat4<T>& mul(const mat4<T> &other){
         for(int x = 0; x < 16; x++){
             this->m_elements[x] *= other.getElement(x);
         }
         return *this;
     }
-    mat4<T>& mul(vec4<T> &other){
+    mat4<T>& mul(const vec4<T> &other){
     //TODO: Figure out how to do this easier
         this->m_elements[0] *= other.X();
         this->m_elements[1] *= other.Y();
@@ -96,7 +96,7 @@ public:
     friend mat4<T> operator-(mat4<T> left,mat4<T> right){
         return left.sub(right);
     }
-    friend mat4<T> operator*(mat4<T> left,mat4<T> right){
+    friend mat4<T> operator*(const mat4<T>& left,const mat4<T>& right){
         return left.mul(right);
     }
     friend mat4<T> operator/(mat4<T> left,mat4<T> right){
@@ -243,6 +243,7 @@ public:
     //float only functions
     mat4<float> orthographic(float left, float right, float bottom, float top, float onear, float ofar);
     mat4<float> perspective(float fov, float aspectRatio, float pnear, float pfar);
+    mat4<float> identity();
 
     //Graphics Based Functions
     mat4<T> translation(vec3<T>& translation)

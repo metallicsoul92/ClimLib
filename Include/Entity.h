@@ -111,7 +111,7 @@ namespace clim
 			template <typename T>
 			T* findComponentType()
 			{
-                for(int x = 0; x < listOfComponents.size();x++){
+                for(unsigned int x = 0; x < listOfComponents.size();x++){
 					//for (component_Itr itr = listOfComponents.begin(); itr != listOfComponents.end(), ++itr){
                     if (T* type = dynamic_cast<T*>(listOfComponents.at(x)))
 					{

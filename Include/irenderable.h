@@ -2,7 +2,7 @@
 #define IRENDERABLE
 
 #include <QOpenGLContext>
-
+#include <QImage>
 namespace clim{
     namespace graphics{
 

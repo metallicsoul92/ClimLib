@@ -33,7 +33,7 @@ m_frames(0),m_time(0.0f)
     m_context->makeCurrent(this);
     m_context->functions()->initializeOpenGLFunctions();
 
-    if(!m_context->functions()){
+    if(m_context->functions()==NULL){
         qWarning("Cannot obtain OpenGL versions");
         exit(1);
     }
@@ -107,7 +107,7 @@ void Screen::resizeGL(int w, int h)
 
 void Screen::initializeGL ()
 {
-    m_context->functions()->glClearColor(0.0f,0.0f,0.0f,1.0f);
+    m_context->functions()->glClearColor(1.0f,1.0f,1.0f,1.0f);
 }
 
 

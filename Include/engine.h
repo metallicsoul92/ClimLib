@@ -23,7 +23,7 @@ namespace clim{
 
           static Engine *getInstance();
           explicit Engine(const Engine &e, int &argc, char **argv);
-           explicit Engine(QString title, QString version, bool debug,  int &argc, char** argv);
+           explicit Engine(QString title, QString version, bool m_debug,  int &argc, char** argv);
           ~Engine();
             system::console *getConsole()const;
             system::console *Console();
@@ -39,11 +39,13 @@ namespace clim{
         QString& EngineVersion();
         graphics::Screen* ScreenPtr();
 
+        system::Debugger *getDebug() const;
+        system::Debugger *debugger();
         private:
 
-            bool isRunning;
+        bool isRunning;
 
-            system::Debugger debug;
+            system::Debugger *m_debug;
             QString *m_debugString;
            QString m_engineTitle;
             QString m_engineVersion;

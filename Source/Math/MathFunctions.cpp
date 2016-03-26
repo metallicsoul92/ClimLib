@@ -56,7 +56,9 @@ namespace clim{
 }
 
     mat4<float> identity(){
-           return mat4<float>(1.0f);
+        return mat4<float>(1.0f);
     }
+
+
     }
 }

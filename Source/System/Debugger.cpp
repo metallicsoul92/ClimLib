@@ -8,10 +8,8 @@ namespace clim
 	namespace system
 	{
 
-    Debugger::Debugger(system::console &c,QDebug &obj)
+    Debugger::Debugger(console *c):m_console(c),m_debugString(new QString()), m_debug(m_debugString)
     {
-        console = c;
-        debug = obj;
     }
 
     void Debugger::printToScreen(std::string line)
@@ -29,13 +27,14 @@ namespace clim
 
     void Debugger::redirectToConsole(QString data)
     {
-        debug << data;
-        console.printToConsole(data);
+        m_console->printToConsole(data);
     }
 
     QDebug Debugger::operator<<(QString data)
     {
+        m_debug << data;
         redirectToConsole(data);
+        return m_debug;
     }
 
 

@@ -8,11 +8,12 @@ namespace clim{
 		class Debugger
 		{
 		public:
-            Debugger(system::console& c);
+            Debugger(system::console* c);
 
-            QDebug debug;
-            QString debugString;
-            system::console &console;
+            system::console *m_console;
+            QString *m_debugString;
+            QDebug m_debug;
+
             static void printToScreen(std::string line);
             void redirectToConsole(QString data);
             void setDebug();

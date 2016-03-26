@@ -17,6 +17,9 @@
 #include "Include/fileutils.h"
 #include "Include/console.h"
 #include "Include/engine.h"
+#include "Dependencies/glm/glm/glm.hpp"
+
+
 #define VERSION "0.0.2.0"
 #define ENGINETITLE "ClimLib"
 
@@ -47,9 +50,6 @@ QString ApplicationTitle;
 
 int main(int argc, char *argv[])
 {
-
-
-
 
 
     std::vector<std::string> test;

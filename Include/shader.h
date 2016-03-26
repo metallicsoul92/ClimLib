@@ -10,8 +10,8 @@
 #include "MathTypes.h"
 #include "shadervariable.h"
 //User Defines
-#define filePath ".csm"
-#define MaxSources 5
+#define FILE_EXT ".csm"
+#define MAX_SOURCES 5
 
 namespace clim{
 namespace graphics{

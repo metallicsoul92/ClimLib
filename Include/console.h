@@ -20,13 +20,15 @@ class console : public QWidget
 
 public:
     explicit console(QWidget *parent = 0);
+    explicit console(console&& con);
     ~console();
     void printToConsole(QString data);
-    Ui::console *getConsole(){return ui;}
+    Ui::console *getConsole()const {return ui;}
+    Ui::console *Console(){return ui;}
 
     template<typename t>
     void operator<<(t data){ printToConsole(QString(data));}
-
+    console & operator=(console&& other);
 
 public slots:
     void recieveInput(QString data);

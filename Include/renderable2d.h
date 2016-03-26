@@ -4,6 +4,8 @@
 #include "MathTypes.h"
 #include "irenderable.h"
 #include "renderer2d.h"
+
+
 namespace clim{
     namespace graphics{
 
@@ -28,13 +30,13 @@ namespace clim{
 
         virtual void Submit(Renderer2D* renderer) const
         {
-            renderer->Submit(this);
+            //renderer->submit(this);
         }
         Renderable2d(const math::vec3<float> position, const math::vec2<unsigned int> size, unsigned int color)
             :m_Position(position), m_Size(size),m_Color(color), m_Texture(nullptr){
             m_UV = GetDefaultUVs();
         }
-        math::vec2<unsigned int> renderable2d::Size() const
+        math::vec2<unsigned int> Size() const
         {
             return m_Size;
         }
@@ -54,7 +56,7 @@ namespace clim{
         uicolor[2] = (uint)(color.getZ() * 255.0f);
         uicolor[3] = (uint)(color.getW() * 255.0f);
 
-       m_Color = a << 24 | b << 16 | g << 8 | r;
+       m_Color = uicolor[0] << 24 | uicolor[1] << 16 | uicolor[2] << 8 | uicolor[3];
     }
     QVector<math::vec2<float> > UV() const
     {
@@ -76,7 +78,7 @@ namespace clim{
 
     static QVector<math::vec2<float>> GetDefaultUVs()
             {
-                static QVector<maths::vec2> results;
+                static QVector<math::vec2<float>> results;
                 if (!results.size())
                 {
                     results.push_back(math::vec2<float>(0, 0));

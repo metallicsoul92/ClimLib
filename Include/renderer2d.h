@@ -2,7 +2,7 @@
 #define RENDERER2D
 
 #include "MathTypes.h"
-
+#include <QVector>
 namespace clim{
 namespace graphics{
 
@@ -12,7 +12,7 @@ namespace graphics{
 
         protected:
         QVector<math::mat4<float>> m_Transformation;
-        const math::mat4<float>* m_TransformBack;
+        const math::mat4<float>* m_transformBack;
         GlTarget m_target;
 
         Renderer2D(){
@@ -27,16 +27,19 @@ namespace graphics{
         void push(const math::mat4<float>& matrix, bool override = false){
             if(override)
                 m_Transformation.push_back(matrix);
-            else
-                m_Transformation.push_back(m_TransformaBack * matrix);
+            else{
+                math::mat4<float> trans = *m_transformBack;
+                math::mat4<float> newTransform = trans.mul(matrix);
+                m_Transformation.push_back(newTransform);
+            }
+            m_transformBack = &m_Transformation.back();
 
-            m_TransformBack = &m_Transformation.back();
         }
         void pop(){
             if(m_Transformation.size()>1)
                 m_Transformation.pop_back();
 
-            m_TransformBack = &m_Transformation.back();
+            m_transformBack = &m_Transformation.back();
         }
 
         inline void SetGlTarget(GlTarget target){
@@ -44,7 +47,8 @@ namespace graphics{
 
         virtual void begin(){}
         virtual void submit() =0;
-
+        virtual void End() {}
+        virtual void Present() = 0;
 
 
 

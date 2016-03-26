@@ -21,6 +21,7 @@ namespace clim{
 		void Entity::addComponent(Component *component){
 			
 			listOfComponents.push_back(component);
+            component->SetParent(*this);
 		}
 	
 		std::vector<Component*> Entity::getComponentList(){
@@ -40,7 +41,8 @@ namespace clim{
 			
 		}
 	void Entity::clear(){
-		if (this->listOfComponents.size() != NULL){
+
+        if (!this->listOfComponents.empty()){
 			listOfComponents.clear();
 		}
 	}
