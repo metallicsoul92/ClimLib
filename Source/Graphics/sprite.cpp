@@ -101,6 +101,12 @@ void clim::graphics::Sprite::LateUpdate()
 
 }
 
+void clim::graphics::Sprite::Render(base_Renderer *context)
+{
+
+
+}
+
 
 }
 }

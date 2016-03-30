@@ -1,9 +1,10 @@
 #ifndef MATHFUNCTIONS_H_
 #define MATHFUNCTIONS_H_
-//Normal Math Functions
-#include <math.h>
 
-//QT Related files
+
+
+#include "MathTypes.h"
+
 
 //QT Defines
 #include <QString>
@@ -12,10 +13,6 @@
 //C++ Defines
 #include <iostream>
 
-//User Defines
-#include "../Dependencies/glm/glm/glm.hpp"
-#include "../Dependencies/glm/glm/gtc/matrix_transform.hpp"
-#include "../Dependencies/glm/glm/mat4x4.hpp"
 
 
 #ifndef M_PI
@@ -25,6 +22,11 @@ namespace clim{
 	namespace math{
 
 
+
+
+
+
+    mat4<float> lookAt(const vec3<float>& camPos, const vec3<float>& , const vec3<float>& up = vec3<float>(0.0f,0.0f,1.0f));
 
     float toRadians(float degrees);
 

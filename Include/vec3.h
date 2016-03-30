@@ -1,6 +1,6 @@
 #ifndef VEC3
 #define VEC3
-
+#include <math.h>
 
 namespace clim{
     namespace math{
@@ -54,6 +54,16 @@ namespace clim{
 
            return start + temp;
 
+       }
+
+       float Magnitude()const{ return sqrt((m_x*m_y)+(m_x*m_y)+(m_z*m_z));}
+       float getMagnitude(){ return sqrt((m_x*m_y)+(m_x*m_y)+(m_z*m_z));}
+
+       vec3<T>& normalize(){
+            setX(m_x/getMagnitude());
+            setY(m_y/getMagnitude());
+            setZ(m_z/getMagnitude());
+            return this;
        }
 
         //Overloads

@@ -14,7 +14,7 @@
 namespace clim{
 namespace graphics{
 
-    class Sprite: protected core::Component{
+    class Sprite: public Renderable2d, protected core::Component{
 
 
     private:
@@ -52,6 +52,11 @@ namespace graphics{
   void FixUpdate();
   void Update();
   void LateUpdate();
+
+  // iRenderable interface
+    public:
+  void Render(base_Renderer *context);
+
     };
 
 

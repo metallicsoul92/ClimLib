@@ -1,15 +1,21 @@
 #ifndef IRENDERABLE
 #define IRENDERABLE
 
+
+
 #include <QOpenGLContext>
 #include <QImage>
 namespace clim{
     namespace graphics{
 
+
+    //foward declare
+    class base_Renderer;
+
     class iRenderable{
 
     public:
-        virtual void Render(QOpenGLContext& context)=0;
+        virtual void Render(base_Renderer *context)=0;
     };
 
 

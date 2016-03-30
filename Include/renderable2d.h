@@ -13,15 +13,12 @@ namespace clim{
     class Renderable2d : public iRenderable{
 
     private:
-        math::vec3<float> m_Position;
-        math::vec2<unsigned int> m_Size;
         unsigned int m_Color;
         QVector<math::vec2<float>> m_UV;
-        QImage m_Texture;
         bool m_Visible;
 
     protected:
-        Renderable2d(): m_Texture(){
+        Renderable2d(){
             m_UV = GetDefaultUVs();
         }
 
@@ -32,14 +29,11 @@ namespace clim{
         {
             //renderer->submit(this);
         }
-        Renderable2d(const math::vec3<float> position, const math::vec2<unsigned int> size, unsigned int color)
-            :m_Position(position), m_Size(size),m_Color(color), m_Texture(nullptr){
+        Renderable2d(unsigned int color)
+            :m_Color(color){
             m_UV = GetDefaultUVs();
         }
-        math::vec2<unsigned int> Size() const
-        {
-            return m_Size;
-        }
+
     unsigned int Color() const
     {
     return m_Color;
@@ -62,14 +56,6 @@ namespace clim{
     {
     return m_UV;
     }
-    QImage Texture() const
-    {
-    return m_Texture;
-    }
-    math::vec3<float> Position() const
-        {
-            return m_Position;
-        }
 
 
 
@@ -93,6 +79,10 @@ namespace clim{
 
 
 
+
+    // iRenderable interface
+    public:
+    void Render(base_Renderer *context);
     };
 
 

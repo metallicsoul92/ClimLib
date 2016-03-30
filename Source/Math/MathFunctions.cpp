@@ -59,6 +59,11 @@ namespace clim{
         return mat4<float>(1.0f);
     }
 
+    mat4<float> lookAt(const vec3<float> &camPos, const vec3<float> &, const vec3<float> &up)
+    {
+
+    }
+
 
     }
 }

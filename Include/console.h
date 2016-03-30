@@ -26,8 +26,8 @@ public:
     Ui::console *getConsole()const {return ui;}
     Ui::console *Console(){return ui;}
 
-    template<typename t>
-    void operator<<(t data){ printToConsole(QString(data));}
+
+    void operator<<(const char * data);
     console & operator=(console&& other);
 
 public slots:

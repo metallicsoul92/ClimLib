@@ -1,0 +1,13 @@
+TODO:
+
+
+3/29/16:
+
+1. Fix Q_DECLARE_METATYPE bug. Something is going on that isnt matching up right
+	1a. Check vec2/vec3/vec4/mat4 for default public constructers.
+		THIS MAY BE THE ISSUE
+
+
+2. Remove all implementation of vec2,vec3,vec4 into its implementation header file
+    (Note: I use .inl as a file extension for files which contain template function
+    declaration)

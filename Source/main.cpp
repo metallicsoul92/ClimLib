@@ -40,7 +40,6 @@
 #include "Dependencies/lua-5.3.2/src/lauxlib.h"
 #include "Dependencies/lua-5.3.2/src/lualib.h"
 
-
 using namespace clim;
 using namespace graphics;
 using namespace core;
@@ -60,8 +59,14 @@ int main(int argc, char *argv[])
     Audio atest = Audio("Test","Test.wav");
 
     Engine engine("ClimLib ","0.0.2.0",true,argc,argv);
-    engine.getConsole()->printToConsole("Inside main Function");
 
+    //Old Usage of the console
+    //engine.getConsole()->printToConsole("Inside main Function");
+
+    //engine.Console()->operator <<( "Testing the operator function");
+
+    //New Usage of the console
+    *engine.Console() << "Testing the operator function";
 
         for(unsigned int i= 0; i< test.size();i++){
         engine.getConsole()->printToConsole(test[i].c_str());

@@ -20,6 +20,7 @@ HEADERS += \
     Include/vec3.h \
     Include/vec4.h \
     Include/mat4.h \
+  Include/mat4.inl \
     Include/irenderable.h \
     Include/renderer2d.h \
     Include/renderable2d.h \
@@ -29,7 +30,8 @@ HEADERS += \
     Include/serializable.h \
     Include/sprite.h \
     Include/camera2d.h \
-    Include/singleton.h
+    Include/singleton.h \
+    Include/base_renderer.h
 
 SOURCES += \
     Source/Component/Component.cpp \
@@ -52,7 +54,9 @@ SOURCES += \
     Source/Graphics/shadervariable.cpp \
     Source/System/serializable.cpp \
     Source/Graphics/sprite.cpp \
-    Source/Component/camera2d.cpp
+    Source/Component/camera2d.cpp \
+    Source/Graphics/renderer2d.cpp \
+
 
 CONFIG += console
 CONFIG += c++14
@@ -68,4 +72,5 @@ INCLUDEPATH += $$PWD/Dependencies/lua-5.3.2/builds/mingw/include
 INCLUDEPATH += $$PWD/Dependencies/glm/glm
 DEPENDPATH += $$PWD/Dependencies/lua-5.3.2/builds/mingw/include
 
-DISTFILES +=
+DISTFILES += \
+    TODO.txt

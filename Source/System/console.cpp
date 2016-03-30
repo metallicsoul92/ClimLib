@@ -30,14 +30,19 @@ console::~console()
         ui->outputField->appendHtml("\n");
     }
 
+    void console::operator<<(const char *data)
+    {
+           this->printToConsole(data);
+    }
 
 
 
 
 
-void console::recieveInput(QString data){
-    this->printToConsole(data);
-}
+
+    void console::recieveInput(QString data){
+        this->printToConsole(data);
+    }
 
 }
 }
