@@ -4,85 +4,44 @@
 #include "MathTypes.h"
 #include "irenderable.h"
 #include "renderer2d.h"
-
+#include "vertexdata.h"
 
 namespace clim{
     namespace graphics{
 
 
-    class Renderable2d : public iRenderable{
+    class Renderable2d : iRenderable{
 
     private:
         unsigned int m_Color;
         QVector<math::vec2<float>> m_UV;
         bool m_Visible;
-
+        vertexData *m_vData;
     protected:
-        Renderable2d(){
-            m_UV = GetDefaultUVs();
-        }
+
 
        public:
-        virtual ~Renderable2d() { }
 
-        virtual void Submit(Renderer2D* renderer) const
-        {
-            //renderer->submit(this);
-        }
-        Renderable2d(unsigned int color)
-            :m_Color(color){
-            m_UV = GetDefaultUVs();
-        }
+        Renderable2d();
+        Renderable2d(const Renderable2d &copy);
+        Renderable2d(const vertexData& data);
 
-    unsigned int Color() const
-    {
-    return m_Color;
-    }
-    void setColor(unsigned int Color)
-    {
-    m_Color = Color;
-    }
-    void setColor(const math::vec4<float>& color){
-
-        unsigned int uicolor[4];
-        uicolor[0] = (uint)(color.getX() * 255.0f);
-        uicolor[1] = (uint)(color.getY() * 255.0f);
-        uicolor[2] = (uint)(color.getZ() * 255.0f);
-        uicolor[3] = (uint)(color.getW() * 255.0f);
-
-       m_Color = uicolor[0] << 24 | uicolor[1] << 16 | uicolor[2] << 8 | uicolor[3];
-    }
-    QVector<math::vec2<float> > UV() const
-    {
-    return m_UV;
-    }
+        ~Renderable2d();
 
 
 
+    unsigned int Color() const;
+    void setColor(unsigned int Color);
+    void setColor(const math::vec4<float>& color);
+    QVector<math::vec2<float> > UV() const;
 
     //Static Functions
 
-    static QVector<math::vec2<float>> GetDefaultUVs()
-            {
-                static QVector<math::vec2<float>> results;
-                if (!results.size())
-                {
-                    results.push_back(math::vec2<float>(0, 0));
-                    results.push_back(math::vec2<float>(0, 1));
-                    results.push_back(math::vec2<float>(1, 1));
-                    results.push_back(math::vec2<float>(1, 0));
-                }
-                return results;
-            }
-
-
-
-
-
+    static QVector<math::vec2<float>> GetDefaultUVs();
 
     // iRenderable interface
-    public:
-    void Render(base_Renderer *context);
+
+    void Render(base_Renderer *context)const;
     };
 
 

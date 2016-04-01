@@ -6,15 +6,14 @@ namespace clim{
 namespace graphics {
 
 
-Sprite::Sprite(const QString &filepath, const math::vec2<int> &size)
-{
+Sprite::Sprite(const QString &filepath, const math::vec2<int> &size){
     m_sprite = new QImage(filepath);
     m_size = new math::vec2<int>(size);
 
    Start();
 }
 
-Sprite::Sprite(const QImage &image,const math::vec2<int>& size)
+Sprite::Sprite(const QImage &image,const math::vec2<int>& size):Renderable2d()
 {
  m_sprite = new QImage(image);
  m_size = new math::vec2<int>(size);

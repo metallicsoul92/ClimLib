@@ -14,7 +14,9 @@ namespace clim{
 
     class iRenderable{
 
-    public:
+       public:
+        iRenderable(){}
+       ~iRenderable(){}
         virtual void Render(base_Renderer *context)=0;
     };
 

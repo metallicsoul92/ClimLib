@@ -20,7 +20,10 @@ HEADERS += \
     Include/vec3.h \
     Include/vec4.h \
     Include/mat4.h \
-  Include/mat4.inl \
+    Include/mat4.tcc \
+    Include/vec2.tcc \
+    Include/vec3.tcc \
+    Include/vec4.tcc \
     Include/irenderable.h \
     Include/renderer2d.h \
     Include/renderable2d.h \
@@ -53,9 +56,12 @@ SOURCES += \
     Source/Component/transform.cpp \
     Source/Graphics/shadervariable.cpp \
     Source/System/serializable.cpp \
+    Source/Graphics/renderable2d.cpp \
     Source/Graphics/sprite.cpp \
     Source/Component/camera2d.cpp \
     Source/Graphics/renderer2d.cpp \
+
+
 
 
 CONFIG += console

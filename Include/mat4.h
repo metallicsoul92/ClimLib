@@ -3,6 +3,8 @@
 
 #include "MathTypes.h"
 #include <GL/gl.h>
+#include <string>
+#include <iostream>
 namespace clim{
 namespace math{
 
@@ -17,6 +19,10 @@ public:
     mat4(const mat4<T>  &other);
     mat4(const T& t);
 
+    //Deconstructor
+    ~mat4(){
+
+    }
 
     // Getters
     T getElement(int index)const;
@@ -41,11 +47,11 @@ public:
 
 
     //Operator Overloads
-    friend mat4<T> operator+(mat4<T> left,mat4<T> right);
-    friend mat4<T> operator-(mat4<T> left,mat4<T> right);
-    friend mat4<T> operator*(const mat4<T>& left,const mat4<T>& right);
-    friend mat4<T> operator/(mat4<T> left,mat4<T> right);
-    friend bool operator==(mat4<T> left,mat4<T> right);
+    mat4<T> operator+(mat4<T> right);
+    mat4<T> operator-(mat4<T> right);
+    mat4<T> operator*(mat4<T>& right);
+    mat4<T> operator/(mat4<T> right);
+    bool operator==(mat4<T> right);
 
 
     //Inverting
@@ -75,6 +81,7 @@ private:
 }
 }
 
+#include "mat4.tcc"
 
 
 #endif // MAT4

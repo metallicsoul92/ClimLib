@@ -7,8 +7,9 @@
 #include "vec4.h"
 #include "mat4.h"
 
-Q_DECLARE_METATYPE(clim::math::vec2<int>)
+#include <QMetaType>
 
+Q_DECLARE_METATYPE(clim::math::vec2<int>)
 Q_DECLARE_METATYPE(clim::math::vec2<float>)
 Q_DECLARE_METATYPE(clim::math::vec2<char>)
 Q_DECLARE_METATYPE(clim::math::vec2<bool>)

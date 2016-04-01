@@ -1,7 +1,5 @@
 #include "../../Include/screen.h"
 #include "../../Include/MathFunctions.h"
-#include "../../Include/MathTypes.h"
-#include "../../Include/mat4.h"
 #include "../../Include/Logger.h"
 #include "../../Include/Debugger.h"
 namespace clim{

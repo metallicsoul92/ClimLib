@@ -28,8 +28,9 @@ namespace clim{
 
     mat4<float> lookAt(const vec3<float>& camPos, const vec3<float>& , const vec3<float>& up = vec3<float>(0.0f,0.0f,1.0f));
 
-    float toRadians(float degrees);
-
+   inline float toRadians(float degrees){
+        return degrees * (M_PI / 180);
+    }
 
 
 

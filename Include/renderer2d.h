@@ -13,13 +13,11 @@ namespace graphics{
     class Renderer2D : public base_Renderer{
 
     private:
-      QVector<core::Entity*> m_viewableEntities;
 
 
     public:
-       void push(core::Entity *temp);
+       void push();
        void pop();
-
        // base_Renderer interface
        void Render();
 

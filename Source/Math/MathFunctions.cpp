@@ -1,14 +1,11 @@
 #include "../../Include/MathFunctions.h"
-#include "../../Include/mat4.h"
-#include "../../Include/vec3.h"
+
 
 
 namespace clim{
 	namespace math{
 
-    float toRadians(float degrees){
-        return degrees * (M_PI / 180);
-    }
+
 
     GLfloat *toFloat(mat4<float> &matrix){
         GLfloat *temp = new GLfloat[16];

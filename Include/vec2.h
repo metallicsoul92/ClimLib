@@ -10,101 +10,45 @@ namespace clim{
     struct vec2{
 
     public:
-        vec2() {}
-        vec2(const T &x,const T &y){
-            this->m_x = x;
-            this->m_y = y;
-        }
+        vec2();
+        vec2(const T &x,const T &y);
+        vec2(const vec2<T> &other);
+        //destructor
+        ~vec2(){
 
-        vec2(const vec2<T> &other){
-            this->m_x = other.getX();
-            this->m_y = other.getY();
         }
 
 
-        vec2<T>& add(const vec2<T> &other){
-            m_x += other.getX();
-            m_y += other.getY();
-
-            return *this;
-        }
-        vec2<T>& sub(const vec2<T> &other){
-            m_x -= other.getX();
-            m_y -= other.getY();
-
-            return *this;
-        }
-        vec2<T>& mul(const vec2<T> &other){
-            m_x *= other.getX();
-            m_y *= other.getY();
-
-            return *this;
-        }
-        vec2<T>& div(const vec2<T> &other){
-            m_x /= other.getX();
-            m_y /= other.getY();
-
-            return *this;
-        }
-        vec2<T>& cross(const vec2<T> &other){
-            m_x *= other.getY();
-            m_y *= -(other.getX());
-
-            return *this;
-        }
+        vec2<T>& add(const vec2<T> &other);
+        vec2<T>& sub(const vec2<T> &other);
+        vec2<T>& mul(const vec2<T> &other);
+        vec2<T>& div(const vec2<T> &other);
+        vec2<T>& cross(const vec2<T> &other);
 
 
-    std::string ToString(){
+    std::string ToString();
 
-        std::string temp;
-        temp += "X: ";
-        temp += std::to_string(m_x);
-        temp +="\nY: ";
-        temp += std::to_string(m_y);
-        temp +="\n";
-        return temp;
+        vec2<T> operator+(vec2<T> right);
 
-    }
+        vec2<T> operator-(vec2<T> right);
 
-        friend vec2<T> operator+(vec2<T> left, vec2<T> right){
-            return left.add(right);
-        }
+        vec2<T> operator*(vec2<T> right);
 
-        friend vec2<T> operator-(vec2<T> left, vec2<T> right){
-            return left.sub(right);
-        }
+        vec2<T> operator/(vec2<T> right);
 
-        friend vec2<T> operator*(vec2<T> left, vec2<T> right){
-            return left.mul(right);
-        }
+        bool operator==(vec2<T> right);
 
-        friend vec2<T> operator/(vec2<T> left, vec2<T> right){
-            return left.div(right);
-        }
-
-        friend bool operator==(vec2<T> left,vec2<T> right){
-            if(left.getX() == right.getX() && left.getY() == right.getY())
-                return true;
-
-            return false;
-        }
-
-        friend bool operator!=(vec2<T> left,vec2<T> right){
-            if(left.getX() == right.getX() && left.getY() == right.getY())
-                return false;
-
-            return true;
-        }
+        bool operator!=(vec2<T> right);
 
 
-        void setX(T x){ m_x = x;}
-        void setY(T y){ m_y = y;}
+        void setX(T x);
+        void setY(T y);
 
-        T getX()const{return m_x;}
-        T getY()const{return m_y;}
+        T getX()const;
+        T getY()const;
 
-        T& X(){return m_x;}
-        T& Y(){return m_y;}
+        T& X();
+        T& Y();
     private:
         T m_x;
         T m_y;
@@ -115,8 +59,7 @@ namespace clim{
     }
 }
 
-
-
+#include "vec2.tcc"
 
 #endif // VEC2
 
